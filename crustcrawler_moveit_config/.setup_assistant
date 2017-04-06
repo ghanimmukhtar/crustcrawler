@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: crustcrawler_description
+    relative_path: urdf/crustcrawler_arm_test_2.xacro
+  SRDF:
+    relative_path: config/crustcrawler.srdf
+  CONFIG:
+    author_name: ghanim mukhtar
+    author_email: ghanimmukhtar@gmail.com
+    generated_timestamp: 1491400934

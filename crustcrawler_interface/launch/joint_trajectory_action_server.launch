@@ -1,0 +1,8 @@
+<launch> 
+ <arg name="simulation" default="true" />
+ <param name="simulation" value="$(arg simulation)"/>
+
+ <node name="follow_joint_trajectory" pkg="crustcrawler_interface" type="joint_trajectory_action_server" ns="crustcrawler" output="screen" args="joint_states:=/crustcrawler/joint_states"/>
+
+ <!--node name="follow_joint_trajectory" pkg="crustcrawler_interface" type="joint_trajectory_action_server" ns="crustcrawler" output="screen" args="joint_states:=/crustcrawler/joint_states" launch-prefix="gdb -ex run args"/-->
+</launch>

@@ -1,0 +1,571 @@
+<?xml version="1.0"?>
+<robot name="crustcrawler_arm" xmlns:xacro="http://www.ros.org/wiki/xacro">
+    
+    <xacro:include filename="$(find crustcrawler_description)/urdf/materials.urdf.xacro" />
+
+    <macro name="crustcrawler_arm" params="parent *origin">
+        <!-- ****** JOINT DEFINITIONS ****** -->
+        
+        <!-- Arm's base joint -->
+        <joint name="arm_base_joint" type="fixed">
+            <insert_block name="origin" /> 
+            <parent link="${parent}"/>
+            <child link="link_joint_1"/>
+        </joint>
+        
+        <!-- Shoulder pan joint -->
+        <joint name="joint_1" type="revolute" >
+            <origin xyz="-0.0075 0 0.025" rpy="0 0 0" />
+            <parent link="link_joint_1" />
+            <child link="link_joint_2"/>
+            
+            <axis xyz="0 0 1"/>
+            <limit  lower="-1.22" upper="1.22" effort="300" velocity="1.17" />
+            <safety_controller k_position="100" k_velocity="15.0" soft_lower_limit="${-1.22+0.1}" soft_upper_limit="${1.22-0.1}" />
+            <dynamics damping="50" friction="1"/>
+        </joint>
+        
+        <!-- Shoulder tilt joint -->
+        <joint name="joint_2" type="revolute">
+            <origin xyz="${0.105 - 0.01 - 0.03085/2} 0 ${0.01 + 0.05 - 0.031/2}" rpy="0 0 0" />
+            <parent link="link_joint_2"/>
+            <child link="link_girder_1" />
+            
+            <axis xyz="0 -1 0"/>
+            <limit  lower="-1.04719755" upper="1.972222" effort="300" velocity="1.17" />
+            <safety_controller k_position="100" k_velocity="15.0" soft_lower_limit="${-1.04719755+0.1}" soft_upper_limit="${1.972222-0.1}" />
+            <dynamics damping="50" friction="1"/>
+        </joint>
+
+        <!-- Fixed joint between the first girder and joint_3 -->
+        <joint name="first_girder_joint" type="fixed">
+            <insert_block name="origin" /> 
+            <parent link="link_girder_1"/>
+            <child link="link_joint_3"/>
+        </joint>
+
+        <!-- joint between joint_3 and second girder -->
+        <joint name="joint_3" type="revolute">
+            <origin xyz="${0.105 - 0.01 - 0.03085/2} 0 ${0.01 + 0.05 - 0.031/2}" rpy="0 0 0" />
+            <parent link="link_joint_3"/>
+            <child link="link_girder_2" />
+            
+            <axis xyz="0 -1 0"/>
+            <limit  lower="-1.04719755" upper="1.972222" effort="300" velocity="1.17" />
+            <safety_controller k_position="100" k_velocity="15.0" soft_lower_limit="${-1.04719755+0.1}" soft_upper_limit="${1.972222-0.1}" />
+            <dynamics damping="50" friction="1"/>
+        </joint>
+        
+        <!-- Fixed joint between the second girder and joint_4 -->
+        <joint name="second_girder_joint" type="fixed">
+            <insert_block name="origin" /> 
+            <parent link="link_girder_2"/>
+            <child link="link_joint_4"/>
+        </joint>
+
+        <!-- Revoulte joint between joint_4 and joint_5 -->
+        <joint name="joint_4" type="revolute" >
+            <origin xyz="-0.0075 0 0.025" rpy="0 0 0" />
+            <parent link="link_joint_4" />
+            <child link="link_joint_5"/>
+            
+            <axis xyz="0 0 1"/>
+            <limit  lower="-1.22" upper="1.22" effort="300" velocity="1.17" />
+            <safety_controller k_position="100" k_velocity="15.0" soft_lower_limit="${-1.22+0.1}" soft_upper_limit="${1.22-0.1}" />
+            <dynamics damping="50" friction="1"/>
+        </joint>
+
+        <!-- Revoulte joint between joint_5 and joint_6 -->
+        <joint name="joint_5" type="revolute">
+            <origin xyz="${0.04 - 0.01 + 0.0015 + 0.105 + 0.055 - 0.01} 0 0" rpy="0 0 0" />
+            <parent link="link_joint_5"/>
+            <child link="link_joint_6" />
+            
+            <axis xyz="0 -1 0"/>
+            <!-- From -113 to 108 degrees -->
+            <limit  lower="-1.972222" upper="1.8849556" effort="300" velocity="1.17" />
+            <dynamics damping="50" friction="1"/>
+            <safety_controller k_position="100" k_velocity="15.0" soft_lower_limit="${-1.972222+0.1}" soft_upper_limit="${1.8849556-0.1}" />
+        </joint>
+        
+        <!-- Revoulte joint between joint_6 and the eef -->
+        <joint name="joint_6" type="revolute">
+            <origin xyz="${0.08 - 0.01} 0 ${0.05 - 0.0115 - 0.0155}" rpy="0 0 0" />
+            <parent link="link_joint_6"/>
+            <child link="link_gripper_base" />
+            
+            <axis xyz="-1 0 0"/>
+            <!-- From -150 to 150 degrees -->
+            <limit  lower="-2.6179939" upper="2.6179939" effort="300" velocity="1.17" />
+            <dynamics damping="50" friction="1"/>
+            <safety_controller k_position="100" k_velocity="15.0" soft_lower_limit="${-2.6179939+0.1}" soft_upper_limit="${2.6179939-0.1}" />
+        </joint>
+        
+        <!-- Gripper right finger joint -->
+        <joint name="right_finger_joint" type="revolute">
+            <origin xyz="${0.0015 + 0.05 - 0.01} ${-0.035/2} 0" rpy="0 0 0" />
+            <parent link="link_griper_base"/>
+            <child link="arm_right_finger_link" />
+            
+            <axis xyz="0 0 1"/>
+            <!-- From 14 to -45 degrees -->
+            <limit  lower="-0.838576116" upper="0.245436912" effort="300" velocity="1.17" />
+            <dynamics damping="50" friction="1"/>
+            <safety_controller k_position="100" k_velocity="15.0" soft_lower_limit="${-0.838576116+0.1}" soft_upper_limit="${0.245436912-0.1}" />
+        </joint>
+        
+        <!-- Gripper left finger joint -->
+        <joint name="left_finger_joint" type="revolute">
+            <origin xyz="${0.0015 + 0.05 - 0.01} ${0.035/2} 0" rpy="0 0 0" />
+            <parent link="link_gripper_base"/>
+            <child link="arm_left_finger_link" />
+            
+            <axis xyz="0 0 1"/>
+            <!-- From -14 to 45 degrees -->
+            <limit  lower="-0.240323643" upper="0.843689385" effort="300" velocity="1.17" />
+            <dynamics damping="50" friction="1"/>
+            <safety_controller k_position="100" k_velocity="15.0" soft_lower_limit="${-0.240323643+0.1}" soft_upper_limit="${0.843689385-0.1}" />
+        </joint>
+        
+        <!-- ****** LINK DEFINITIONS ****** -->
+        
+        <link name="link_joint_1">
+            <inertial>
+                <mass value="0.125" />
+                <origin xyz="0 0 0.00893364" rpy="0 0 0" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                         iyy="1.0" iyz="0.0" 
+                         izz="1.0" />
+            </inertial>
+            
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/joint_1.dae"/>
+                </geometry>
+                <material name="Green" />
+            </visual>
+            
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/joint_1.dae"/>
+                </geometry>
+            </collision>
+        </link>
+        
+        <link name="link_joint_2">
+            <inertial>
+                <mass value="0.405" />
+                <origin xyz="0.02988871 0 0.02056699" rpy="0 0 0" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                         iyy="1.0" iyz="0.0" 
+                         izz="1.0" />
+            </inertial>
+            
+            <visual>
+                <origin xyz="0.0 0.0 0.005" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/joint_2.dae"/>
+                </geometry>
+                <material name="Grey" />
+            </visual>
+            
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/joint_2.dae"/>
+                </geometry>
+            </collision>
+        </link>
+        
+        <link name="link_girder_1">
+            <inertial>
+                <mass value="0.18" />
+                <origin xyz="0.13999458 0 0.00064711" rpy="0 0 0" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                         iyy="1.0" iyz="0.0" 
+                         izz="1.0" />
+            </inertial>
+            
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/link_50.dae"/>
+                </geometry>
+                <material name="Blue" />
+            </visual>
+            
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/link_50.dae"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <link name="link_joint_3">
+            <inertial>
+                <mass value="0.18" />
+                <origin xyz="0.13999458 0 0.00064711" rpy="0 0 0" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                         iyy="1.0" iyz="0.0" 
+                         izz="1.0" />
+            </inertial>
+            
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/joint_3.dae"/>
+                </geometry>
+                <material name="Blue" />
+            </visual>
+            
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/joint_3.dae"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <link name="link_girder_2">
+            <inertial>
+                <mass value="0.18" />
+                <origin xyz="0.13999458 0 0.00064711" rpy="0 0 0" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                         iyy="1.0" iyz="0.0" 
+                         izz="1.0" />
+            </inertial>
+            
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/link_25.dae"/>
+                </geometry>
+                <material name="Blue" />
+            </visual>
+            
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/link_25.dae"/>
+                </geometry>
+            </collision>
+        </link>
+        
+
+        <link name="link_joint_4">
+            <inertial>
+                <mass value="0.18" />
+                <origin xyz="0.13999458 0 0.00064711" rpy="0 0 0" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                         iyy="1.0" iyz="0.0" 
+                         izz="1.0" />
+            </inertial>
+            
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/joint_4.dae"/>
+                </geometry>
+                <material name="Blue" />
+            </visual>
+            
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/joint_4.dae"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <link name="link_joint_5">
+            <inertial>
+                <mass value="0.18" />
+                <origin xyz="0.13999458 0 0.00064711" rpy="0 0 0" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                         iyy="1.0" iyz="0.0" 
+                         izz="1.0" />
+            </inertial>
+            
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/joint_5.dae"/>
+                </geometry>
+                <material name="Blue" />
+            </visual>
+            
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/joint_5.dae"/>
+                </geometry>
+            </collision>
+        </link>
+
+        <link name="link_joint_6">
+            <inertial>
+                <mass value="0.12" />
+                <origin xyz="0.04463361 0 0.00720194" rpy="0 0 0" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                         iyy="1.0" iyz="0.0" 
+                         izz="1.0" />
+            </inertial>
+            
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/joint_6.dae"/>
+                </geometry>
+                <material name="Green" />
+            </visual>
+            
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/joint_6.dae"/>
+                </geometry>
+            </collision>
+        </link>
+        
+        <link name="link_gripper_base">
+            <inertial>
+                <mass value="0.13" />
+                <origin xyz="0.02539960 0 0" rpy="0 0 0" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                         iyy="1.0" iyz="0.0" 
+                         izz="1.0" />
+            </inertial>
+            
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/gripper_base.dae"/>
+                </geometry>
+                <material name="Grey" />
+            </visual>
+            
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/gripper_base.dae"/>
+                </geometry>
+            </collision>
+        </link>
+        
+        <link name="arm_right_finger_link">
+            <inertial>
+                <mass value="0.0225" />
+                <origin xyz="0.03058625 -0.01804371 -0.00941599" rpy="0 0 0" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                         iyy="1.0" iyz="0.0" 
+                         izz="1.0" />
+            </inertial>
+            
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/arm_right_finger.dae"/>
+                </geometry>
+                <material name="Blue" />
+            </visual>
+            
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/arm_right_finger.dae"/>
+                </geometry>
+            </collision>
+        </link>
+        
+        <link name="arm_left_finger_link">
+            <inertial>
+                <mass value="0.0225" />
+                <origin xyz="0.03058625 0.01804371 -0.00941599" rpy="0 0 0" />
+                <inertia ixx="1.0" ixy="0.0" ixz="0.0"
+                         iyy="1.0" iyz="0.0" 
+                         izz="1.0" />
+            </inertial>
+            
+            <visual>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/arm_left_finger.dae"/>
+                </geometry>
+                <material name="Green" />
+            </visual>
+            
+            <collision>
+                <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+                <geometry>
+                    <mesh filename="package://crustcrawler_description/meshes/collada/arm_left_finger.dae"/>
+                </geometry>
+            </collision>
+        </link>
+        
+        <!-- ****** TRANSMISSION DEFINITIONS ****** -->
+        
+        <transmission type="pr2_mechanism_model/SimpleTransmission" name="joint_1_trans">
+            <actuator name="joint_1_motor" />
+            <joint name="joint_1" />
+            <mechanicalReduction>1.0</mechanicalReduction>
+        </transmission>
+        
+        <transmission type="pr2_mechanism_model/SimpleTransmission" name="joint_2_trans">
+            <actuator name="joint_2_motor" />
+            <joint name="joint_2" />
+            <mechanicalReduction>1.0</mechanicalReduction>
+        </transmission>
+        
+        <transmission type="pr2_mechanism_model/SimpleTransmission" name="joint_3_trans">
+            <actuator name="joint_3_motor" />
+            <joint name="joint_3" />
+            <mechanicalReduction>1.0</mechanicalReduction>
+        </transmission>
+        
+        <transmission type="pr2_mechanism_model/SimpleTransmission" name="joint_4_trans">
+            <actuator name="joint_4_motor" />
+            <joint name="joint_4" />
+            <mechanicalReduction>1.0</mechanicalReduction>
+        </transmission>
+        
+        <transmission type="pr2_mechanism_model/SimpleTransmission" name="joint_5_trans">
+            <actuator name="joint_5_motor" />
+            <joint name="joint_5" />
+            <mechanicalReduction>1.0</mechanicalReduction>
+        </transmission>
+        
+        <transmission type="pr2_mechanism_model/SimpleTransmission" name="joint_6_trans">
+            <actuator name="joint_6_motor" />
+            <joint name="joint_6" />
+            <mechanicalReduction>1.0</mechanicalReduction>
+        </transmission>
+        
+        <transmission type="pr2_mechanism_model/SimpleTransmission" name="right_finger_trans">
+            <actuator name="right_finger_motor" />
+            <joint name="right_finger_joint" />
+            <mechanicalReduction>1.0</mechanicalReduction>
+        </transmission>
+        
+        <transmission type="pr2_mechanism_model/SimpleTransmission" name="left_finger_trans">
+            <actuator name="left_finger_motor" />
+            <joint name="left_finger_joint" />
+            <mechanicalReduction>1.0</mechanicalReduction>
+        </transmission>
+        
+        <!-- ****** MATERIAL DEFINITIONS ****** -->
+        
+        <gazebo reference="link_joint_1">
+            <material>SmartArm/GunMetalBrushedAluminum</material>
+            <turnGravityOff>true</turnGravityOff>
+        </gazebo>
+        
+        <gazebo reference="link_joint_2">
+            <material>SmartArm/GunMetalBrushedAluminum</material>
+            <turnGravityOff>true</turnGravityOff>
+        </gazebo>
+        
+        <gazebo reference="link_girder_1">
+            <material>SmartArm/GunMetalBrushedAluminum</material>
+            <turnGravityOff>true</turnGravityOff>
+        </gazebo>
+
+        <gazebo reference="link_joint_3">
+            <material>SmartArm/GunMetalBrushedAluminum</material>
+            <turnGravityOff>true</turnGravityOff>
+        </gazebo>
+        
+        <gazebo reference="link_girder_2">
+            <material>SmartArm/GunMetalBrushedAluminum</material>
+            <turnGravityOff>true</turnGravityOff>
+        </gazebo>
+        
+        <gazebo reference="link_joint_4">
+            <material>SmartArm/GunMetalBrushedAluminum</material>
+            <turnGravityOff>true</turnGravityOff>
+        </gazebo>
+        
+        <gazebo reference="link_joint_5">
+            <material>SmartArm/GunMetalBrushedAluminum</material>
+            <turnGravityOff>true</turnGravityOff>
+        </gazebo>
+        
+        <gazebo reference="link_joint_6">
+            <material>SmartArm/GunMetalBrushedAluminum</material>
+            <turnGravityOff>true</turnGravityOff>
+        </gazebo>
+        
+        <gazebo reference="link_gripper_base">
+            <material>SmartArm/GunMetalBrushedAluminum</material>
+            <turnGravityOff>true</turnGravityOff>
+        </gazebo>
+        
+        <gazebo reference="arm_right_finger_link">
+            <material>SmartArm/GunMetalBrushedAluminum</material>
+            <turnGravityOff>true</turnGravityOff>
+            <mu1 value="500.0" />
+            <mu2 value="500.0" />
+            <kp value="1000000.0" />
+            <kd value="1.0" />
+        </gazebo>
+        
+        <gazebo reference="arm_left_finger_link">
+            <material>SmartArm/GunMetalBrushedAluminum</material>
+            <turnGravityOff>true</turnGravityOff>
+            <mu1 value="500.0" />
+            <mu2 value="500.0" />
+            <kp value="1000000.0" />
+            <kd value="1.0" />
+        </gazebo>
+        
+        <gazebo reference="joint_1">
+            <stopKd value="1.0" />
+            <stopKp value="1000000.0" />
+            <fudgeFactor value="0.5" />
+        </gazebo>
+        
+        <gazebo reference="joint_2">
+            <stopKd value="1.0" />
+            <stopKp value="1000000.0" />
+            <fudgeFactor value="0.5" />
+        </gazebo>
+        
+        <gazebo reference="joint_3">
+            <stopKd value="1.0" />
+            <stopKp value="1000000.0" />
+            <fudgeFactor value="0.5" />
+        </gazebo>
+        
+        <gazebo reference="joint_4">
+            <stopKd value="1.0" />
+            <stopKp value="1000000.0" />
+            <fudgeFactor value="0.5" />
+        </gazebo>
+        
+        <gazebo reference="joint_5">
+            <stopKd value="1.0" />
+            <stopKp value="1000000.0" />
+            <fudgeFactor value="0.5" />
+        </gazebo>
+        
+        <gazebo reference="joint_6">
+            <stopKd value="1.0" />
+            <stopKp value="1000000.0" />
+            <fudgeFactor value="0.5" />
+        </gazebo>
+        
+        <gazebo reference="right_finger_joint">
+            <stopKd value="1.0" />
+            <stopKp value="1000000.0" />
+            <fudgeFactor value="1.0" />
+        </gazebo>
+        
+        <gazebo reference="left_finger_joint">
+            <stopKd value="1.0" />
+            <stopKp value="1000000.0" />
+            <fudgeFactor value="1.0" />
+        </gazebo>
+    </macro>
+</robot>
