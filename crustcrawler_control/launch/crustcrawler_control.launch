@@ -21,5 +21,7 @@
     <!--param name="robot_description" command="$(find xacro)/xacro.py '$(find crustcrawler_description)/urdf/crustcrawler.xacro'" /-->
     <remap from="/joint_states" to="/crustcrawler/joint_states" />
   </node>
+  
+  <node name="crustcrawler_translator" pkg="crustcrawler_control" type="crustcrawler_command_translator" respawn="false" output="screen"/>
 
 </launch>

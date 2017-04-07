@@ -47,6 +47,8 @@
      <remap from="/joint_states" to="/crustcrawler/joint_states" />   
     	<param name="rate" value="20.0"/>
    </node>
+  
+   <node name="crustcrawler_translator" pkg="crustcrawler_control" type="crustcrawler_command_translator" respawn="false" output="screen"/>
 
    <!-- Start all Dynamixels in the relaxed state -->
    <!--node pkg="rbx1_dynamixels" type="relax_all_servos.py" name="relax_all_servos" /-->

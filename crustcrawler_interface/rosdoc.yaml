@@ -1,0 +1,3 @@
+ - builder: epydoc
+   name: Crustcrawler SDK Python API
+   config: epydoc.config

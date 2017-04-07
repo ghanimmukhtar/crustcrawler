@@ -1,26 +1,44 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(crustcrawler_interface)
-find_package(catkin REQUIRED COMPONENTS
-  actionlib
-  actionlib_msgs
-  control_msgs
-  roscpp
+
+find_package(catkin
+  REQUIRED
+  COMPONENTS
   rospy
+  actionlib
+  sensor_msgs
+  std_msgs
+  control_msgs
   trajectory_msgs
+  dynamic_reconfigure
+  crustcrawler_core_msgs
 )
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -fPIC")
+
+catkin_python_setup()
+
+generate_dynamic_reconfigure_options(
+  cfg/PositionJointTrajectoryActionServer.cfg
+  cfg/VelocityJointTrajectoryActionServer.cfg
+  cfg/PositionFFJointTrajectoryActionServer.cfg
+)
+
+add_dependencies(${PROJECT_NAME}_gencfg crustcrawler_core_msgs_generate_messages_py)
 
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES crustcrawler_interface
-#  CATKIN_DEPENDS actionlib actionlib_msgs control_msgs roscpp rospy trajectory_msgs
-#  DEPENDS system_lib
+  CATKIN_DEPENDS
+  rospy
+  actionlib
+  sensor_msgs
+  std_msgs
+  control_msgs
+  trajectory_msgs
+  dynamic_reconfigure
+  crustcrawler_core_msgs
 )
 
-include_directories(
-  ${catkin_INCLUDE_DIRS}
+install(
+  DIRECTORY scripts/
+  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+  USE_SOURCE_PERMISSIONS
 )
-
-add_executable(joint_trajectory_action_server src/joint_trajectory_action_server.cpp)
-target_link_libraries(joint_trajectory_action_server ${catkin_LIBRARIES})
