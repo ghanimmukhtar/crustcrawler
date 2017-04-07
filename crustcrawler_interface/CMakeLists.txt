@@ -21,6 +21,7 @@ generate_dynamic_reconfigure_options(
   cfg/PositionJointTrajectoryActionServer.cfg
   cfg/VelocityJointTrajectoryActionServer.cfg
   cfg/PositionFFJointTrajectoryActionServer.cfg
+  cfg/GripperActionServer.cfg
 )
 
 add_dependencies(${PROJECT_NAME}_gencfg crustcrawler_core_msgs_generate_messages_py)

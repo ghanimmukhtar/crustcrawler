@@ -12,6 +12,8 @@ add_message_files(DIRECTORY msg FILES
   EndpointState.msg
   JointCommand.msg
   RobustControllerStatus.msg
+  EndEffectorCommand.msg
+  EndEffectorState.msg
 )
 
 add_service_files(DIRECTORY srv FILES
