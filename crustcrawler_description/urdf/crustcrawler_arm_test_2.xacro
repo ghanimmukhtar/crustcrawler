@@ -172,7 +172,7 @@
             
             <axis xyz="1 0 0"/>
             <!-- From 14 to -45 degrees -->
-            <limit  lower="-0.838576116" upper="0.245436912" effort="300" velocity="1.4" />
+            <limit  lower="-0.84" upper="0.84" effort="300" velocity="1.4" />
         </joint>
         
         <!-- Gripper left finger joint -->
@@ -183,7 +183,7 @@
             
             <axis xyz="1 0 0"/>
             <!-- From 14 to -45 degrees -->
-            <limit  lower="-0.838576116" upper="0.245436912" effort="300" velocity="1.4" />
+            <limit  lower="-0.84" upper="0.84" effort="300" velocity="1.4" />
         </joint>
 
         <joint name="crustcrawler_endpoint" type="fixed">

@@ -91,7 +91,7 @@ crustcrawler:
         id: 9
         init: 0
         min: 0
-        max: 1024
+        max: 1023
    joint_left_finger_position_controller:
       controller:
         package: dynamixel_controllers
@@ -102,6 +102,6 @@ crustcrawler:
       joint_speed: 1.17
       motor:
         id: 8
-        init: 0
+        init: 100
         min: 0
-        max: 1024
+        max: 1023

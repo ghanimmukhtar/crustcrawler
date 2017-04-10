@@ -1,5 +1,6 @@
 <launch>
     <param name="/use_sim_time" value="false" />
+    <param name="simulation" value="false" />
 
     <!-- Load the URDF/Xacro model of our robot -->
 	<param name="robot_description" command="$(find xacro)/xacro.py '$(find crustcrawler_description)/urdf/crustcrawler_arm_test_2.xacro'" />
@@ -48,7 +49,8 @@
     	<param name="rate" value="20.0"/>
    </node>
   
-   <node name="crustcrawler_translator" pkg="crustcrawler_control" type="crustcrawler_command_translator" respawn="false" output="screen"/>
+   <node name="crustcrawler_translator" pkg="crustcrawler_control" type="crustcrawler_command_translator" respawn="false" output="screen"/>  
+   <node name="crustcrawler_gripper" pkg="crustcrawler_control" type="crustcrawler_gripper" respawn="false" output="screen"/>
 
    <!-- Start all Dynamixels in the relaxed state -->
    <!--node pkg="rbx1_dynamixels" type="relax_all_servos.py" name="relax_all_servos" /-->

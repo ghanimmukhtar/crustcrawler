@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /MotionPlanning1
+        - /MotionPlanning1/Planning Request1
         - /MotionPlanning1/Planned Path1
         - /TF1
         - /TF1/Frames1
@@ -166,7 +167,7 @@ Visualization Manager:
         Interactive Marker Size: 0
         Joint Violation Color: 255; 0; 255
         Planning Group: crustcrawler_arm
-        Query Goal State: true
+        Query Goal State: false
         Query Start State: false
         Show Workspace: false
         Start State Alpha: 1
@@ -352,22 +353,22 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 2.9965
+      Distance: 1.2246
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.113567
-        Y: 0.10592
+        X: 0.0477741
+        Y: -0.0410868
         Z: 2.23518e-07
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.179797
+      Pitch: -0.010203
       Target Frame: world
       Value: XYOrbit (rviz)
-      Yaw: 6.08493
+      Yaw: 5.14491
     Saved: ~
 Window Geometry:
   Displays:

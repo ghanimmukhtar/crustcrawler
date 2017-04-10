@@ -15,13 +15,20 @@ public:
         joint_state_sub_ = nh_.subscribe("/crustcrawler/joint_states", 1, &Crustcrawler_Gripper::fingers_position_cb, this);
         gripper_state_pub_ = nh_.advertise<crustcrawler_core_msgs::EndEffectorState>("/crustcrawler/end_effector/gripper/state", 1, this);
 
+
         /*Create a subscriber to the gripper action server to execute the commands*/
-        gripper_action_sub_ = nh_.subscribe("/crustcrawler/end_effector/gripper/gripper_action", 1, &Crustcrawler_Gripper::gripper_action_cb, this);
+        gripper_action_sub_ = nh_.subscribe("/crustcrawler/end_effector/gripper/command", 1, &Crustcrawler_Gripper::gripper_action_cb, this);
+
+        /*Create the publisher to the fingers joints, so commands could be executed (openning and closing)*/
+        right_finger_command_pub_ = nh_.advertise<std_msgs::Float64>("/crustcrawler/joint_right_finger_position_controller/command", 1, this);
+        left_finger_command_pub_ = nh_.advertise<std_msgs::Float64>("/crustcrawler/joint_left_finger_position_controller/command", 1, this);
 
         /*Fill gripper joints names*/
         gripper_joints_names_.resize(2);
         fingers_positions_.resize(2);
         gripper_joints_names_ = {"left_finger_joint", "right_finger_joint"};
+
+        nh_.getParam("/simulation", simulation_);
     }
 
     ~Crustcrawler_Gripper(void)
@@ -50,17 +57,57 @@ public:
 
     /*this is the call back for when the actions server wants to execute a new command (open/close)*/
     void gripper_action_cb(const crustcrawler_core_msgs::EndEffectorCommand::ConstPtr& gripper_command){
+        if(gripper_command->args[13] == '1'){
+            ROS_ERROR_STREAM("I am suppose to open the gripper, cause the command is: " << gripper_command->args);
+            open_gripper();
+        }
+        if(gripper_command->args[13] == '0'){
+            ROS_ERROR_STREAM("I am suppose to close the gripper, cause the command is: " << gripper_command->args);
+            close_gripper();
+        }
+    }
+
+    void open_gripper(){
+        /*Simulation*/
+        if(simulation_){
+            left_cmd_.data = -0.8;
+            right_cmd_.data = 0.8;
+        }
+        /*real robot*/
+        else{
+            left_cmd_.data = -0.5;
+            right_cmd_.data = 0.5;
+        }
+        right_finger_command_pub_.publish(right_cmd_);
+        left_finger_command_pub_.publish(left_cmd_);
+    }
+
+    void close_gripper(){
+        /*Simulation*/
+        if(simulation_){
+            left_cmd_.data = 0.0;
+            right_cmd_.data = 0.0;
+        }
+        /*real robot*/
+        else{
+            left_cmd_.data = 0.0;
+            right_cmd_.data = 0.0;
+        }
+        right_finger_command_pub_.publish(right_cmd_);
+        left_finger_command_pub_.publish(left_cmd_);
 
     }
 
 protected:
     ros::NodeHandle nh_;
     ros::Subscriber joint_state_sub_, gripper_action_sub_;
-    ros::Publisher gripper_state_pub_;
+    ros::Publisher gripper_state_pub_, gripper_command_pub_, right_finger_command_pub_, left_finger_command_pub_;
     crustcrawler_core_msgs::EndEffectorState gripper_state_msg_;
     double left_finger_position_, right_finger_position_;
     std::vector<double> fingers_positions_;
     std::vector<std::string> gripper_joints_names_;
+    std_msgs::Float64 left_cmd_, right_cmd_;
+    bool simulation_ = true;
 };
 
 int main(int argc, char **argv)
