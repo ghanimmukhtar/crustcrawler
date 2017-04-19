@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(crustcrawler_control)
 find_package(catkin REQUIRED
+  moveit_ros_planning_interface
   roscpp
   rospy
   sensor_msgs
@@ -8,11 +9,12 @@ find_package(catkin REQUIRED
   crustcrawler_core_msgs
 )
 
+find_package(Eigen3 REQUIRED)
+find_package(Boost REQUIRED COMPONENTS system )
+
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -fPIC")
 
-include_directories(
-  ${catkin_INCLUDE_DIRS}
-)
+include_directories(include /usr/local/include ${EIGEN3_INCLUDE_DIR} ${catkin_INCLUDE_DIRS} ${Boost_INCLUDE_DIRS} )
 
 catkin_package(
 #  INCLUDE_DIRS include

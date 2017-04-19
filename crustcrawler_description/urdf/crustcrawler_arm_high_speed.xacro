@@ -76,7 +76,7 @@
             <child link="link_joint_2"/>
             
             <axis xyz="0 0 1"/>
-            <limit  lower="-1.8" upper="2.3" effort="6.0" velocity="1.7" />
+            <limit  lower="-1.8" upper="2.3" effort="6.0" velocity="2.4" />
         </joint>
 
         <!-- joint 2 -->
@@ -86,7 +86,7 @@
             <child link="connector_1"/>
             
             <axis xyz="0 1 0"/>
-            <limit  lower="-1.6" upper="1.6" effort="15" velocity="1.7" />
+            <limit  lower="-1.6" upper="1.6" effort="15" velocity="2.4" />
         </joint>
 
         <!-- Fixed joint between connector_1 and the first girder -->
@@ -110,7 +110,7 @@
             <child link="connector_2"/>
             
             <axis xyz="0 1 0"/>
-            <limit  lower="-1.9" upper="1.9" effort="8.4" velocity="1.7" />
+            <limit  lower="-1.9" upper="1.9" effort="8.4" velocity="2.4" />
         </joint>
 
         <!-- Fixed joint between connector_2 and link_girder_2 -->
@@ -134,7 +134,7 @@
             <child link="link_joint_5"/>
             
             <axis xyz="0 0 1"/>
-            <limit  lower="-3.14" upper="3.14" effort="6.0" velocity="1.7" />
+            <limit  lower="-3.0" upper="3.0" effort="6.0" velocity="2.4" />
         </joint>
 
         <!-- joint 5 -->
@@ -144,7 +144,7 @@
             <child link="connector_3"/>
             
             <axis xyz="0 1 0"/>
-            <limit  lower="-1.6" upper="1.6" effort="2.5" velocity="1.7" />
+            <limit  lower="-1.6" upper="1.6" effort="2.5" velocity="2.4" />
         </joint>
 
         <!-- Fixed joint between connector_3 and joint_6 -->
@@ -161,7 +161,7 @@
             <child link="link_gripper_base"/>
             
             <axis xyz="0 0 1"/>
-            <limit  lower="-3.140" upper="3.140" effort="2.5" velocity="1.7" />
+            <limit  lower="-3.0" upper="3.0" effort="2.5" velocity="2.4" />
         </joint>
 
         <!-- Gripper right finger joint -->
@@ -172,7 +172,7 @@
             
             <axis xyz="1 0 0"/>
             <!-- From 14 to -45 degrees -->
-            <limit  lower="-0.84" upper="0.84" effort="1.8" velocity="1.7" />
+            <limit  lower="-0.84" upper="0.84" effort="1.8" velocity="2.4" />
         </joint>
         
         <!-- Gripper left finger joint -->
@@ -183,7 +183,7 @@
             
             <axis xyz="1 0 0"/>
             <!-- From 14 to -45 degrees -->
-            <limit  lower="-0.84" upper="0.84" effort="1.8" velocity="1.7" />
+            <limit  lower="-0.84" upper="0.84" effort="1.8" velocity="2.4" />
         </joint>
 
         <joint name="crustcrawler_endpoint" type="fixed">

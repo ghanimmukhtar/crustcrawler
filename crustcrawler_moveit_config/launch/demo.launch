@@ -14,7 +14,7 @@
   </include>
 
   <!-- If needed, broadcast static tf for robot root -->
-    <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 world_base world 100" />
+    <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 base world 100" />
 
 
   <!-- We do not have a robot connected, so publish fake joint states -->
@@ -27,7 +27,13 @@
   <!--node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" /-->
 
   <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
+  <arg name="kinect" default="false" />
+  <arg name="xtion" default="true" />
+  <arg name="camera_link_pose" default="0.8 -0.225 0.87 -0.392 -0.0197 0.949 0.0723 "/>
   <include file="$(find crustcrawler_moveit_config)/launch/move_group.launch">
+    <arg name="kinect" value="$(arg kinect)" />
+    <arg name="xtion" value="$(arg xtion)" />
+    <arg name="camera_link_pose" default="$(arg camera_link_pose)"/>
     <arg name="allow_trajectory_execution" value="true"/>
     <arg name="fake_execution" value="false"/>
     <arg name="info" value="true"/>

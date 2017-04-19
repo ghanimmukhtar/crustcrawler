@@ -9,6 +9,14 @@
 
   <!-- Load the robot specific sensor manager; this sets the moveit_sensor_manager ROS parameter -->
   <arg name="moveit_sensor_manager" default="crustcrawler" />
-  <include file="$(find crustcrawler_moveit_config)/launch/$(arg moveit_sensor_manager)_moveit_sensor_manager.launch.xml" />
+  <arg name="kinect" default="false" />
+  <arg name="xtion" default="false" />
+  <arg name="camera_link_pose" default="0.85 -0.225 0.813 -0.392 -0.0197 0.949 0.0723 "/>
+
+  <include file="$(find crustcrawler_moveit_config)/launch/$(arg moveit_sensor_manager)_moveit_sensor_manager.launch.xml" >
+    <arg name="kinect" value="$(arg kinect)" />
+    <arg name="xtion" value="$(arg xtion)" />
+    <arg name="camera_link_pose" default="$(arg camera_link_pose)"/>
+  </include>
   
 </launch>

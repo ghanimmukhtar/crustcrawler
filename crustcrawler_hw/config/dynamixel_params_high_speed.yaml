@@ -8,7 +8,7 @@ crustcrawler:
         type: JointPositionController
       joint: joint_1
       joint_name: joint_1
-      joint_speed: 1.7
+      joint_speed: 2.4
       motor:
         id: 1
         init: 2047
@@ -21,7 +21,7 @@ crustcrawler:
         type: JointPositionController
       joint: joint_2
       joint_name: joint_2
-      joint_speed: 1.7
+      joint_speed: 2.4
       motor:
         id: 2
         init: 2047
@@ -34,7 +34,7 @@ crustcrawler:
         type: JointPositionController
       joint: joint_3
       joint_name: joint_3
-      joint_speed: 1.7
+      joint_speed: 2.4
       motor:
         id: 4
         init: 2047
@@ -47,7 +47,7 @@ crustcrawler:
         type: JointPositionController
       joint: joint_4
       joint_name: joint_4
-      joint_speed: 1.7
+      joint_speed: 2.4
       motor:
         id: 5
         init: 2047
@@ -60,7 +60,7 @@ crustcrawler:
         type: JointPositionController
       joint: joint_5
       joint_name: joint_5
-      joint_speed: 1.7
+      joint_speed: 2.4
       motor:
         id: 6
         init: 2047
@@ -73,7 +73,7 @@ crustcrawler:
         type: JointPositionController
       joint: joint_6
       joint_name: joint_6
-      joint_speed: 1.7
+      joint_speed: 2.4
       motor:
         id: 7
         init: 2047
@@ -86,7 +86,7 @@ crustcrawler:
         type: JointPositionController
       joint: right_finger_joint
       joint_name: right_finger_joint
-      joint_speed: 1.7
+      joint_speed: 2.4
       motor:
         id: 9
         init: 0
@@ -99,7 +99,7 @@ crustcrawler:
         type: JointPositionController
       joint: left_finger_joint
       joint_name: left_finger_joint
-      joint_speed: 1.7
+      joint_speed: 2.4
       motor:
         id: 8
         init: 100
