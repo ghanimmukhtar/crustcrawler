@@ -2,7 +2,7 @@ crustcrawler:
   # Publish all joint states -----------------------------------
   joint_state_controller:
     type: joint_state_controller/JointStateController
-    publish_rate: 50  
+    publish_rate: 20  
   
   # Position Controllers ---------------------------------------
   joint_1_position_controller:

@@ -19,7 +19,8 @@
   <!-- convert joint states to TF transforms for rviz, etc -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
     <!--param name="robot_description" command="$(find xacro)/xacro.py '$(find crustcrawler_description)/urdf/crustcrawler.xacro'" /-->
-    <remap from="/joint_states" to="/crustcrawler/joint_states" />
+    <remap from="/joint_states" to="/crustcrawler/joint_states" />    
+    	<param name="publish_frequency" value="20.0"/>
   </node>
   
   <node name="crustcrawler_translator" pkg="crustcrawler_control" type="crustcrawler_command_translator" respawn="false" output="screen"/>
