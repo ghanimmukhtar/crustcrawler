@@ -13,7 +13,6 @@ public:
         /*Subscribe to the status of the joint action server so that you update the joint commands when they is a goal to be executed*/
         joint_command_sub_ = nh_.subscribe("/crustcrawler/follow_joint_trajectory/goal", 1,
                                            &Crustcrawler_JointCommand_Translator::joint_trajectory_new_goal_cb, this);
-        joint_state_sub_ = nh_.subscribe("/crustcrawler/joint_states", 1, &Crustcrawler_JointCommand_Translator::joint_state_cb, this);
 
         /*Those are the publisher which will be used to translate each command received from the joint action server to all joints*/
         pub_j_1_ = nh_.advertise<std_msgs::Float64>("/crustcrawler/joint_1_position_controller/command", 1, this);
@@ -27,10 +26,6 @@ public:
     ~Crustcrawler_JointCommand_Translator(void)
     {
 
-    }
-
-    void joint_state_cb(const sensor_msgs::JointState::ConstPtr& jo_state){
-        joint_state_ = *jo_state;
     }
 
     void joint_trajectory_new_goal_cb(const control_msgs::FollowJointTrajectoryActionGoal::ConstPtr& new_goal){
