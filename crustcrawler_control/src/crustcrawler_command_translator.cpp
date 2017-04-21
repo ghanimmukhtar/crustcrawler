@@ -11,10 +11,8 @@ class Crustcrawler_JointCommand_Translator
 public:
     Crustcrawler_JointCommand_Translator(std::string name){
         /*Subscribe to the status of the joint action server so that you update the joint commands when they is a goal to be executed*/
-        //joint_command_sub_ = nh_.subscribe("/crustcrawler/follow_joint_trajectory/status", 1, &Crustcrawler_JointCommand_Translator::joint_trajectory_cb, this);
         joint_command_sub_ = nh_.subscribe("/crustcrawler/follow_joint_trajectory/goal", 1,
                                            &Crustcrawler_JointCommand_Translator::joint_trajectory_new_goal_cb, this);
-        //joint_command_sub_ = nh_.subscribe("/crustcrawler/joint_command", 1, &Crustcrawler_JointCommand_Translator::joint_command_cb, this);
         joint_state_sub_ = nh_.subscribe("/crustcrawler/joint_states", 1, &Crustcrawler_JointCommand_Translator::joint_state_cb, this);
 
         /*Those are the publisher which will be used to translate each command received from the joint action server to all joints*/
@@ -69,45 +67,10 @@ public:
             pub_j_4_.publish(j_4_);
             pub_j_5_.publish(j_5_);
             pub_j_6_.publish(j_6_);
-            usleep(4e3);
+            usleep(1e4);
         }
     }
 
-    void joint_trajectory_cb(const actionlib_msgs::GoalStatusArray::ConstPtr &goal_status){
-        /*Only if there is a new goal to be executed then publish the joint commands*/
-        if(!goal_status->status_list.empty() && goal_status->status_list[0].status != 4){
-            /*Subscribe to joint command that will come from the joint action server*/
-            joint_command_sub_ = nh_.subscribe("/crustcrawler/joint_command", 1, &Crustcrawler_JointCommand_Translator::joint_command_cb, this);
-        }
-    }
-
-    void joint_command_cb(const crustcrawler_core_msgs::JointCommand::ConstPtr& joint_command){
-        /*First fill the joint msgs to be pusblished*/
-        if(joint_command->mode == 4){
-            for(size_t i = 0; i < joint_command->names.size(); i++){
-                if (strcmp(joint_command->names[i].c_str(), "joint_1") == 0)
-                    j_1_.data = joint_command->command[i];
-                else if (strcmp(joint_command->names[i].c_str(), "joint_2") == 0)
-                    j_2_.data = joint_command->command[i];
-                else if (strcmp(joint_command->names[i].c_str(), "joint_3") == 0)
-                    j_3_.data = joint_command->command[i];
-                else if (strcmp(joint_command->names[i].c_str(), "joint_4") == 0)
-                    j_4_.data = joint_command->command[i];
-                else if (strcmp(joint_command->names[i].c_str(), "joint_5") == 0)
-                    j_5_.data = joint_command->command[i];
-                else if (strcmp(joint_command->names[i].c_str(), "joint_6") == 0)
-                    j_6_.data = joint_command->command[i];
-            }
-            /*Then publish them*/
-            pub_j_1_.publish(j_1_);
-            pub_j_2_.publish(j_2_);
-            pub_j_3_.publish(j_3_);
-            pub_j_4_.publish(j_4_);
-            pub_j_5_.publish(j_5_);
-            pub_j_6_.publish(j_6_);
-            //ROS_WARN("********************* I am publishing over here *************************");
-        }
-    }
 
 protected:
     ros::NodeHandle nh_;
