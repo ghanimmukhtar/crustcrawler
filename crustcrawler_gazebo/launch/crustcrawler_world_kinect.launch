@@ -15,25 +15,11 @@
   </include>
 
   <!-- urdf xml robot description loaded on the Parameter Server, converting the xacro into a proper urdf file-->
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find crustcrawler_description)/urdf/crustcrawler_arm_high_speed.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find crustcrawler_description)/urdf/crustcrawler_kinect.urdf.xacro'" />
 	
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="crustcrawler_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -model crustcrawler -param robot_description" />
 
   <!-- ros_control mybot launch file -->
   <include file="$(find crustcrawler_control)/launch/crustcrawler_control.launch" />
-  
-  <!-- Start a fake robot which publishes joint position based on input from a gui >
-	<node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" if="$(arg simulate)">
-		<param name="use_gui" value="true" />
-		<remap from="/joint_states" to="/crustcrawler/joint_states" />
-	</node>
-
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
-
-  <param name="use_gui" value="true"/>
-
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher" />
-
-  <node name="rviz" pkg="rviz" type="rviz" /-->
 </launch>

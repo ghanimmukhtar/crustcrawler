@@ -22,7 +22,9 @@
     <remap from="/joint_states" to="/crustcrawler/joint_states" />    
     	<param name="publish_frequency" value="20.0"/>
   </node>
-  
+
+  <param name="time_step" value="2"/>  
+
   <node name="crustcrawler_translator" pkg="crustcrawler_control" type="crustcrawler_command_translator" respawn="false" output="screen"/>
   
   <node name="crustcrawler_gripper" pkg="crustcrawler_control" type="crustcrawler_gripper" respawn="false" output="screen"/>

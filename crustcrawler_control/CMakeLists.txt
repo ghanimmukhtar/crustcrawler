@@ -26,5 +26,8 @@ catkin_package(
 add_executable(crustcrawler_command_translator src/crustcrawler_command_translator.cpp)
 target_link_libraries(crustcrawler_command_translator ${catkin_LIBRARIES})
 
+add_executable(crustcrawler_command_translator_for_throwing src/crustcrawler_command_translator_for_throwing.cpp)
+target_link_libraries(crustcrawler_command_translator_for_throwing ${catkin_LIBRARIES})
+
 add_executable(crustcrawler_gripper src/crustcrawler_gripper.cpp)
 target_link_libraries(crustcrawler_gripper ${catkin_LIBRARIES})

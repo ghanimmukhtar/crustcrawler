@@ -4,6 +4,7 @@
 
 #include <sensor_msgs/JointState.h>
 #include <crustcrawler_core_msgs/JointCommand.h>
+#include <crustcrawler_core_msgs/EndEffectorCommand.h>
 #include <std_msgs/Float64.h>
 #include <actionlib_msgs/GoalStatusArray.h>
 #include <control_msgs/FollowJointTrajectoryActionGoal.h>
@@ -24,9 +25,17 @@ public:
         pub_j_4_ = nh_.advertise<std_msgs::Float64>("/crustcrawler/joint_4_position_controller/command", 1, this);
         pub_j_5_ = nh_.advertise<std_msgs::Float64>("/crustcrawler/joint_5_position_controller/command", 1, this);
         pub_j_6_ = nh_.advertise<std_msgs::Float64>("/crustcrawler/joint_6_position_controller/command", 1, this);
+        gripper_command_pub_ = nh_.advertise<crustcrawler_core_msgs::EndEffectorCommand>("/crustcrawler/end_effector/gripper/command", 1, this);
 
-        /*time step size*/
+        /*parameters*/
         nh_.getParam("/time_step", dt_);
+        nh_.getParam("/throwing_ball", throwing_ball_);
+
+        gripper_command_.args = "{position: 100.0}";
+        gripper_command_.command = "go";
+        boost_timer_.restart();
+        start_time_ = ros::Time::now().toSec();
+        ros_rate_.reset(new ros::Rate(100));
     }
 
     ~Crustcrawler_JointCommand_Translator(void)
@@ -64,10 +73,14 @@ public:
     }
 
     void joint_trajectory_new_goal_cb(const control_msgs::FollowJointTrajectoryActionGoal::ConstPtr& new_goal){
-        double start_time = ros::Time::now().toSec();
-        the_timer_.restart();
+        trajectory_time_ = new_goal->goal.trajectory.points[new_goal->goal.trajectory.points.size() - 1].time_from_start.toSec();
+        time_to_release_ = trajectory_time_ - 1.0;
+
+
         for(size_t i = 0; i < new_goal->goal.trajectory.points.size(); i++){
-            double time_to_wait = new_goal->goal.trajectory.points[i].time_from_start.toSec();
+            double time_of_current_waypoint = new_goal->goal.trajectory.points[i].time_from_start.toSec(), time_to_wait;
+            //if(i < new_goal->goal.trajectory.points.size() - 2)
+              //  time_to_wait = new_goal->goal.trajectory.points[i + 1].time_from_start.toSec() - time_of_current_waypoint;
             //ROS_ERROR_STREAM("time for this point is: " << time_to_wait);
 
             j_1_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
@@ -115,7 +128,12 @@ public:
                             << "and time to sleep is: " << time_to_sleep);*/
 
             //ROS_WARN_STREAM("I will be waiting for: " << dt_*1e4);
-            usleep(dt_*1e4);
+            //if(throwing_ball_ && new_goal->goal.trajectory.points[i].time_from_start.toSec() > time_to_release_)
+              //  gripper_command_pub_.publish(gripper_command_);
+            //usleep(2e3);
+            ros_rate_->sleep();
+            //ROS_WARN_STREAM("boost timer is: " << boost_timer_.elapsed());
+            //ROS_WARN_STREAM("Ros timer is: " << ros::Time::now().toSec() - start_time_);
         }
     }
 
@@ -123,13 +141,16 @@ public:
 protected:
     ros::NodeHandle nh_;
     ros::Subscriber joint_command_sub_, joint_action_server_sub_, joint_state_sub_;
-    ros::Publisher pub_j_1_, pub_j_2_, pub_j_3_, pub_j_4_, pub_j_5_, pub_j_6_;
+    ros::Publisher pub_j_1_, pub_j_2_, pub_j_3_, pub_j_4_, pub_j_5_, pub_j_6_, gripper_command_pub_;
     std_msgs::Float64 j_1_, j_2_, j_3_, j_4_, j_5_, j_6_;
     sensor_msgs::JointState joint_state_;
-    boost::timer the_timer_;
+    crustcrawler_core_msgs::EndEffectorCommand gripper_command_;
     std::vector<double> target_joint_state_, arranged_joint_states_;
     std::vector<std::string> joint_names_;
-    double dt_;
+    double dt_, trajectory_time_, time_to_release_, time_to_wait_, start_time_;
+    boost::timer boost_timer_;
+    bool throwing_ball_ = false;
+    std::shared_ptr<ros::Rate> ros_rate_;
 };
 
 int main(int argc, char **argv)

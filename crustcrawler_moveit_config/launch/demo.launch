@@ -28,7 +28,7 @@
 
   <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
   <arg name="kinect" default="false" />
-  <arg name="xtion" default="true" />
+  <arg name="xtion" default="false" />
   <arg name="camera_link_pose" default="0.8 -0.225 0.87 -0.392 -0.0197 0.949 0.0723 "/>
   <include file="$(find crustcrawler_moveit_config)/launch/move_group.launch">
     <arg name="kinect" value="$(arg kinect)" />

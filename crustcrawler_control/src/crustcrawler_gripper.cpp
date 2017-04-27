@@ -106,14 +106,16 @@ public:
 
     /*this is the call back for when the actions server wants to execute a new command (open/close)*/
     void gripper_action_cb(const crustcrawler_core_msgs::EndEffectorCommand::ConstPtr& gripper_command){
+        //for(size_t i = 0; i < gripper_command->args.size(); i++)
+          //  ROS_WARN_STREAM("element: " << i << " in gripper joint command args is: " << gripper_command->args[i]);
         if(!simulation_)
             gripper_command_index_ = 11;
         if(gripper_command->args[gripper_command_index_] == '1'){
-            ROS_ERROR_STREAM("I am suppose to open the gripper, cause the command is: " << gripper_command->args);
+            //ROS_ERROR_STREAM("I am suppose to open the gripper, cause the command is: " << gripper_command->args);
             open_gripper();
         }
         if(gripper_command->args[gripper_command_index_] == '0'){
-            ROS_ERROR_STREAM("I am suppose to close the gripper, cause the command is: " << gripper_command->args);
+            //ROS_ERROR_STREAM("I am suppose to close the gripper, cause the command is: " << gripper_command->args);
             close_gripper();
         }
     }
