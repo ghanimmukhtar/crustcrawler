@@ -70,56 +70,61 @@ public:
 
     void joint_states_cb(const sensor_msgs::JointState::ConstPtr& joint_states){
         joint_state_ = *joint_states;
+        joints_loads_ = joint_states->effort;
+        for(size_t i = 0; i < joints_loads_.size(); i++){
+            if(fabs(joints_loads_[i]) > 0.48)
+                stressed_ = true;
+        }
     }
 
     void joint_trajectory_new_goal_cb(const control_msgs::FollowJointTrajectoryActionGoal::ConstPtr& new_goal){
         trajectory_time_ = new_goal->goal.trajectory.points[new_goal->goal.trajectory.points.size() - 1].time_from_start.toSec();
         time_to_release_ = trajectory_time_ - 1.0;
 
+        if(!stressed_){
+            for(size_t i = 0; i < new_goal->goal.trajectory.points.size(); i++){
+                double time_of_current_waypoint = new_goal->goal.trajectory.points[i].time_from_start.toSec(), time_to_wait;
+                //if(i < new_goal->goal.trajectory.points.size() - 2)
+                //  time_to_wait = new_goal->goal.trajectory.points[i + 1].time_from_start.toSec() - time_of_current_waypoint;
+                //ROS_ERROR_STREAM("time for this point is: " << time_to_wait);
 
-        for(size_t i = 0; i < new_goal->goal.trajectory.points.size(); i++){
-            double time_of_current_waypoint = new_goal->goal.trajectory.points[i].time_from_start.toSec(), time_to_wait;
-            //if(i < new_goal->goal.trajectory.points.size() - 2)
-              //  time_to_wait = new_goal->goal.trajectory.points[i + 1].time_from_start.toSec() - time_of_current_waypoint;
-            //ROS_ERROR_STREAM("time for this point is: " << time_to_wait);
+                j_1_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
+                                                                                   find(new_goal->goal.trajectory.joint_names.begin(),
+                                                                                        new_goal->goal.trajectory.joint_names.end(),
+                                                                                        "joint_1"))];
+                j_2_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
+                                                                                   find(new_goal->goal.trajectory.joint_names.begin(),
+                                                                                        new_goal->goal.trajectory.joint_names.end(),
+                                                                                        "joint_2"))];
+                j_3_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
+                                                                                   find(new_goal->goal.trajectory.joint_names.begin(),
+                                                                                        new_goal->goal.trajectory.joint_names.end(),
+                                                                                        "joint_3"))];
+                j_4_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
+                                                                                   find(new_goal->goal.trajectory.joint_names.begin(),
+                                                                                        new_goal->goal.trajectory.joint_names.end(),
+                                                                                        "joint_4"))];
+                j_5_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
+                                                                                   find(new_goal->goal.trajectory.joint_names.begin(),
+                                                                                        new_goal->goal.trajectory.joint_names.end(),
+                                                                                        "joint_5"))];
+                j_6_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
+                                                                                   find(new_goal->goal.trajectory.joint_names.begin(),
+                                                                                        new_goal->goal.trajectory.joint_names.end(),
+                                                                                        "joint_6"))];
+                //target_joint_state_ = new_goal->goal.trajectory.points[i].positions;
+                //arranged_joints_values(new_goal);
+                /*Then publish them*/
+                //while(largest_difference(target_joint_state_, arranged_joint_states_) > 0.03){
+                //  arranged_joints_values(new_goal);
+                pub_j_1_.publish(j_1_);
+                pub_j_2_.publish(j_2_);
+                pub_j_3_.publish(j_3_);
+                pub_j_4_.publish(j_4_);
+                pub_j_5_.publish(j_5_);
+                pub_j_6_.publish(j_6_);
 
-            j_1_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
-                                                                               find(new_goal->goal.trajectory.joint_names.begin(),
-                                                                                    new_goal->goal.trajectory.joint_names.end(),
-                                                                                    "joint_1"))];
-            j_2_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
-                                                                               find(new_goal->goal.trajectory.joint_names.begin(),
-                                                                                    new_goal->goal.trajectory.joint_names.end(),
-                                                                                    "joint_2"))];
-            j_3_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
-                                                                               find(new_goal->goal.trajectory.joint_names.begin(),
-                                                                                    new_goal->goal.trajectory.joint_names.end(),
-                                                                                    "joint_3"))];
-            j_4_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
-                                                                               find(new_goal->goal.trajectory.joint_names.begin(),
-                                                                                    new_goal->goal.trajectory.joint_names.end(),
-                                                                                    "joint_4"))];
-            j_5_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
-                                                                               find(new_goal->goal.trajectory.joint_names.begin(),
-                                                                                    new_goal->goal.trajectory.joint_names.end(),
-                                                                                    "joint_5"))];
-            j_6_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
-                                                                               find(new_goal->goal.trajectory.joint_names.begin(),
-                                                                                    new_goal->goal.trajectory.joint_names.end(),
-                                                                                    "joint_6"))];
-            //target_joint_state_ = new_goal->goal.trajectory.points[i].positions;
-            //arranged_joints_values(new_goal);
-            /*Then publish them*/
-            //while(largest_difference(target_joint_state_, arranged_joint_states_) > 0.03){
-            //  arranged_joints_values(new_goal);
-            pub_j_1_.publish(j_1_);
-            pub_j_2_.publish(j_2_);
-            pub_j_3_.publish(j_3_);
-            pub_j_4_.publish(j_4_);
-            pub_j_5_.publish(j_5_);
-            pub_j_6_.publish(j_6_);
-
-            /*}
+                /*}
             //while((ros::Time::now().toSec() - start_time) <= time_to_wait);
             //double time_to_sleep = ros::Time::now().toSec() - start_time;
             ROS_WARN_STREAM("I am publishing joints commands now !!!!!!!!! for point: " << i
@@ -127,13 +132,21 @@ public:
                             << " and the boost timer elapsed is: " << the_timer_.elapsed()
                             << "and time to sleep is: " << time_to_sleep);*/
 
-            //ROS_WARN_STREAM("I will be waiting for: " << dt_*1e4);
-            //if(throwing_ball_ && new_goal->goal.trajectory.points[i].time_from_start.toSec() > time_to_release_)
-              //  gripper_command_pub_.publish(gripper_command_);
-            //usleep(2e3);
+                //ROS_WARN_STREAM("I will be waiting for: " << dt_*1e4);
+                //if(throwing_ball_ && new_goal->goal.trajectory.points[i].time_from_start.toSec() > time_to_release_)
+                //  gripper_command_pub_.publish(gripper_command_);
+                //usleep(2e3);
+                //ROS_WARN_STREAM("boost timer is: " << boost_timer_.elapsed());
+                //ROS_WARN_STREAM("Ros timer is: " << ros::Time::now().toSec() - start_time_);
+                ros_rate_->sleep();
+            }
+        }
+        else{
+            j_2_.data = 0.0;
+            pub_j_2_.publish(j_2_);
+            stressed_ = false;
+            ROS_WARN("I am stressed and trying to releave myself !!!!!!!");
             ros_rate_->sleep();
-            //ROS_WARN_STREAM("boost timer is: " << boost_timer_.elapsed());
-            //ROS_WARN_STREAM("Ros timer is: " << ros::Time::now().toSec() - start_time_);
         }
     }
 
@@ -145,11 +158,11 @@ protected:
     std_msgs::Float64 j_1_, j_2_, j_3_, j_4_, j_5_, j_6_;
     sensor_msgs::JointState joint_state_;
     crustcrawler_core_msgs::EndEffectorCommand gripper_command_;
-    std::vector<double> target_joint_state_, arranged_joint_states_;
+    std::vector<double> target_joint_state_, arranged_joint_states_, joints_loads_;
     std::vector<std::string> joint_names_;
     double dt_, trajectory_time_, time_to_release_, time_to_wait_, start_time_;
     boost::timer boost_timer_;
-    bool throwing_ball_ = false;
+    bool throwing_ball_ = false, stressed_ = false;
     std::shared_ptr<ros::Rate> ros_rate_;
 };
 

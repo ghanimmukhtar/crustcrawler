@@ -1,0 +1,60 @@
+<launch>
+    <param name="/use_sim_time" value="false" />
+    <param name="simulation" value="false" />
+
+    <!-- Load the URDF/Xacro model of our robot -->
+	<param name="robot_description" command="$(find xacro)/xacro.py '$(find crustcrawler_description)/urdf/crustcrawler_arm_test_2.xacro'" />
+
+    <!-- Publish the robot state -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+        <remap from="/joint_states" to="/crustcrawler/joint_states" />    
+    	<param name="publish_frequency" value="20.0"/>
+    </node>
+
+   <!-- Start the Dynamixel low-level driver manager with parameters -->
+   <node name="dynamixel_manager" pkg="dynamixel_controllers"
+      ns="/crustcrawler" type="controller_manager.py" required="true" output="screen">
+      <rosparam>
+         namespace: dxl_manager
+         serial_ports:
+            dynamixel_ax12:
+               port_name: "/dev/ttyUSB0"
+               baud_rate: 1000000
+               min_motor_id:  1
+               max_motor_id: 9
+               update_rate: 20
+      </rosparam>
+   </node>
+   
+    <!-- Load the joint controller configuration from a YAML file -->
+    <rosparam file="$(find crustcrawler_hw)/config/dynamixel_params.yaml" command="load"/>
+    <param name="time_step" value="1"/>
+    <param name="ros_rate" value="20.0"/>
+
+   <!-- Start the head pan and tilt controllers -->
+   <node name="joints_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
+         ns="/crustcrawler" args="--manager=dxl_manager
+                --port=dynamixel_ax12
+                joint_1_position_controller
+                joint_2_position_controller
+                joint_3_position_controller
+                joint_4_position_controller
+                joint_5_position_controller
+                joint_6_position_controller
+                joint_right_finger_position_controller
+                joint_left_finger_position_controller"
+          output="screen"/>
+
+   <!-- Start the Dynamixel Joint States Publisher -->
+   <node name="dynamixel_joint_states_publisher" pkg="crustcrawler_hw" type="dynamixel_joint_state_publisher.py" output="screen" >
+     <remap from="/joint_states" to="/crustcrawler/joint_states" />   
+    	<param name="rate" value="20.0"/>
+   </node>
+  
+   <node name="crustcrawler_translator" pkg="crustcrawler_control" type="crustcrawler_command_translator" respawn="false" output="screen"/>  
+   <node name="crustcrawler_gripper" pkg="crustcrawler_control" type="crustcrawler_gripper" respawn="false" output="screen"/>
+
+   <!-- Start all Dynamixels in the relaxed state -->
+   <!--node pkg="rbx1_dynamixels" type="relax_all_servos.py" name="relax_all_servos" /-->
+   
+</launch>

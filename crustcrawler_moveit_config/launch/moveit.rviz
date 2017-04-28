@@ -6,11 +6,13 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
+        - /MotionPlanning1
         - /MotionPlanning1/Scene Geometry1
         - /MotionPlanning1/Scene Robot1
         - /MotionPlanning1/Planning Request1
         - /MotionPlanning1/Planned Path1
         - /PointCloud22
+        - /TF1
         - /TF1/Frames1
         - /PointCloud23
       Splitter Ratio: 0.74256
@@ -464,7 +466,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 3.24578
+      Distance: 3.21901
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.06
         Stereo Focal Distance: 1
@@ -476,10 +478,10 @@ Visualization Manager:
         Z: 2.23518e-07
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.939796
+      Pitch: 0.729796
       Target Frame: world
       Value: XYOrbit (rviz)
-      Yaw: 0.151285
+      Yaw: 6.26947
     Saved: ~
 Window Geometry:
   Displays:
@@ -495,5 +497,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 927
-  X: 982
-  Y: 14
+  X: 992
+  Y: 52
