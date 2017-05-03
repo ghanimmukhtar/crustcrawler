@@ -35,6 +35,7 @@ public:
         gripper_command_.command = "go";
         boost_timer_.restart();
         start_time_ = ros::Time::now().toSec();
+        //ros_rate_.reset(new ros::Rate(100));
         ros_rate_.reset(new ros::Rate(100));
     }
 
@@ -55,6 +56,17 @@ public:
         }
     }
 
+    bool is_bigger(std::vector<double>& vector, double value, int& index){
+        bool output = false;
+        for(size_t i = 0; i < vector.size(); i++){
+            if(fabs(vector[i]) > value){
+                index = i;
+                output = true;
+            }
+        }
+        return output;
+    }
+
     //get largest difference between elements of two vectors
     double largest_difference(std::vector<double> &first, std::vector<double> &second){
         Eigen::VectorXd difference(first.size());
@@ -71,10 +83,13 @@ public:
     void joint_states_cb(const sensor_msgs::JointState::ConstPtr& joint_states){
         joint_state_ = *joint_states;
         joints_loads_ = joint_states->effort;
-        for(size_t i = 0; i < joints_loads_.size(); i++){
-            if(fabs(joints_loads_[i]) > 0.48)
-                stressed_ = true;
+        int index;
+        if(is_bigger(joints_loads_, 0.9, index)){
+            stressed_ = true;
+            ROS_WARN_STREAM("the joint under stress is: " << joint_states->name[index] << " with value of: " << joints_loads_[index]);
         }
+        else
+            stressed_ = false;
     }
 
     void joint_trajectory_new_goal_cb(const control_msgs::FollowJointTrajectoryActionGoal::ConstPtr& new_goal){
