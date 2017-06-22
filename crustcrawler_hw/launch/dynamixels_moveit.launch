@@ -8,7 +8,7 @@
     <!-- Publish the robot state -->
     <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
         <remap from="/joint_states" to="/crustcrawler/joint_states" />    
-    	<param name="publish_frequency" value="20.0"/>
+    	<param name="publish_frequency" value="50.0"/>
     </node>
 
    <!-- Start the Dynamixel low-level driver manager with parameters -->
@@ -22,7 +22,7 @@
                baud_rate: 1000000
                min_motor_id:  1
                max_motor_id: 9
-               update_rate: 20
+               update_rate: 50
       </rosparam>
    </node>
    
@@ -48,7 +48,7 @@
    <!-- Start the Dynamixel Joint States Publisher -->
    <node name="dynamixel_joint_states_publisher" pkg="crustcrawler_hw" type="dynamixel_joint_state_publisher.py" output="screen" >
      <remap from="/joint_states" to="/crustcrawler/joint_states" />   
-    	<param name="rate" value="20.0"/>
+    	<param name="rate" value="50.0"/>
    </node>
   
    <node name="crustcrawler_translator" pkg="crustcrawler_control" type="crustcrawler_command_translator" respawn="false" output="screen"/>  
