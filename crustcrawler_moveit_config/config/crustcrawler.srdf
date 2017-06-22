@@ -105,8 +105,6 @@
     <disable_collisions link1="link_joint_1" link2="link_joint_4" reason="Never" />
     <disable_collisions link1="link_joint_1" link2="link_joint_5" reason="Never" />
     <disable_collisions link1="link_joint_1" link2="link_joint_6" reason="Never" />
-    <disable_collisions link1="link_joint_1" link2="link_left_finger" reason="Never" />
-    <disable_collisions link1="link_joint_1" link2="link_right_finger" reason="Never" />
     <disable_collisions link1="link_joint_2" link2="link_joint_3" reason="Never" />
     <disable_collisions link1="link_joint_2" link2="link_joint_4" reason="Never" />
     <disable_collisions link1="link_joint_2" link2="link_joint_5" reason="Never" />

@@ -4,7 +4,7 @@
   <!-- kinect with all frames as defined in turtlebot -->
    <joint name="camera_rgb_joint" type="fixed">
       <!--origin xyz="1.8 0.4 0.4" rpy="0 0.5 -3.14"/-->
-      <origin xyz="0.85 -0.225 0.813" rpy="-0.124 0.77 2.94"/>
+      <origin xyz="1.5 -0.225 0.813" rpy="-0.124 0.77 2.94"/>
       <parent link="world"/>
       <child link="camera_rgb_frame" />
   </joint>

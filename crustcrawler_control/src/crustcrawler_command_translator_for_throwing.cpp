@@ -35,7 +35,7 @@ public:
         gripper_command_.command = "go";
         boost_timer_.restart();
         start_time_ = ros::Time::now().toSec();
-        ros_rate_.reset(new ros::Rate(100));
+        ros_rate_.reset(new ros::Rate(20));
     }
 
     ~Crustcrawler_JointCommand_Translator(void)
@@ -78,15 +78,15 @@ public:
     }
 
     void joint_trajectory_new_goal_cb(const control_msgs::FollowJointTrajectoryActionGoal::ConstPtr& new_goal){
-        trajectory_time_ = new_goal->goal.trajectory.points[new_goal->goal.trajectory.points.size() - 1].time_from_start.toSec();
+        /*trajectory_time_ = new_goal->goal.trajectory.points[new_goal->goal.trajectory.points.size() - 1].time_from_start.toSec();
         time_to_release_ = trajectory_time_ - 1.0;
-
+        double start_time = ros::Time::now().toSec();*/
         if(!stressed_){
             for(size_t i = 0; i < new_goal->goal.trajectory.points.size(); i++){
-                double time_of_current_waypoint = new_goal->goal.trajectory.points[i].time_from_start.toSec(), time_to_wait;
-                //if(i < new_goal->goal.trajectory.points.size() - 2)
-                //  time_to_wait = new_goal->goal.trajectory.points[i + 1].time_from_start.toSec() - time_of_current_waypoint;
-                //ROS_ERROR_STREAM("time for this point is: " << time_to_wait);
+                /*double time_of_current_waypoint = new_goal->goal.trajectory.points[i].time_from_start.toSec(), time_to_wait;
+                if(i < new_goal->goal.trajectory.points.size() - 2)
+                    time_to_wait = new_goal->goal.trajectory.points[i + 1].time_from_start.toSec() - time_of_current_waypoint;
+                ROS_ERROR_STREAM("time for this point is: " << time_to_wait);*/
 
                 j_1_.data = new_goal->goal.trajectory.points[i].positions[distance(new_goal->goal.trajectory.joint_names.begin(),
                                                                                    find(new_goal->goal.trajectory.joint_names.begin(),
@@ -124,20 +124,19 @@ public:
                 pub_j_5_.publish(j_5_);
                 pub_j_6_.publish(j_6_);
 
-                /*}
-            //while((ros::Time::now().toSec() - start_time) <= time_to_wait);
-            //double time_to_sleep = ros::Time::now().toSec() - start_time;
-            ROS_WARN_STREAM("I am publishing joints commands now !!!!!!!!! for point: " << i
-                            << " which has time from start = " << time_to_wait
-                            << " and the boost timer elapsed is: " << the_timer_.elapsed()
-                            << "and time to sleep is: " << time_to_sleep);*/
+
+                /*while((ros::Time::now().toSec() - start_time_) <= time_to_wait);
+                double time_to_sleep = ros::Time::now().toSec() - start_time;
+                ROS_WARN_STREAM("I am publishing joints commands now !!!!!!!!! for point: " << i
+                                << " which has time from start = " << time_to_wait
+                                << "and time to sleep is: " << time_to_sleep);
 
                 //ROS_WARN_STREAM("I will be waiting for: " << dt_*1e4);
                 //if(throwing_ball_ && new_goal->goal.trajectory.points[i].time_from_start.toSec() > time_to_release_)
                 //  gripper_command_pub_.publish(gripper_command_);
                 //usleep(2e3);
                 //ROS_WARN_STREAM("boost timer is: " << boost_timer_.elapsed());
-                //ROS_WARN_STREAM("Ros timer is: " << ros::Time::now().toSec() - start_time_);
+                //ROS_WARN_STREAM("Ros timer is: " << ros::Time::now().toSec() - start_time_);*/
                 ros_rate_->sleep();
             }
         }

@@ -6,12 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /MotionPlanning1
-        - /MotionPlanning1/Scene Geometry1
-        - /MotionPlanning1/Scene Robot1
-        - /MotionPlanning1/Planning Request1
-        - /MotionPlanning1/Planned Path1
-        - /PointCloud22
         - /TF1
         - /TF1/Frames1
         - /PointCloud23
@@ -173,7 +167,7 @@ Visualization Manager:
         Interactive Marker Size: 0
         Joint Violation Color: 255; 0; 255
         Planning Group: crustcrawler_arm
-        Query Goal State: false
+        Query Goal State: true
         Query Start State: false
         Show Workspace: false
         Start State Alpha: 1
@@ -343,17 +337,7 @@ Visualization Manager:
       Frames:
         All Enabled: false
         base:
-          Value: false
-        camera_depth_frame:
-          Value: false
-        camera_depth_optical_frame:
-          Value: false
-        camera_link:
-          Value: false
-        camera_rgb_frame:
-          Value: false
-        camera_rgb_optical_frame:
-          Value: false
+          Value: true
         connector_1:
           Value: false
         connector_2:
@@ -367,9 +351,9 @@ Visualization Manager:
         link_gripper_base:
           Value: false
         link_joint_1:
-          Value: false
+          Value: true
         link_joint_2:
-          Value: false
+          Value: true
         link_joint_3:
           Value: false
         link_joint_4:
@@ -383,7 +367,7 @@ Visualization Manager:
         link_right_finger:
           Value: false
         the_gripper:
-          Value: false
+          Value: true
         world:
           Value: false
       Marker Scale: 1
@@ -394,13 +378,6 @@ Visualization Manager:
       Tree:
         base:
           world:
-            camera_link:
-              camera_depth_frame:
-                camera_depth_optical_frame:
-                  {}
-              camera_rgb_frame:
-                camera_rgb_optical_frame:
-                  {}
             link_joint_1:
               link_joint_2:
                 connector_1:
@@ -478,24 +455,24 @@ Visualization Manager:
         Z: 2.23518e-07
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.729796
+      Pitch: 0.639796
       Target Frame: world
       Value: XYOrbit (rviz)
-      Yaw: 6.26947
+      Yaw: 4.81445
     Saved: ~
 Window Geometry:
   Displays:
-    collapsed: true
-  Height: 1028
+    collapsed: false
+  Height: 1056
   Help:
     collapsed: false
-  Hide Left Dock: true
+  Hide Left Dock: false
   Hide Right Dock: false
   Motion Planning:
-    collapsed: true
-  QMainWindow State: 000000ff00000000fd0000000100000000000002b1000003dafc0200000005fb000000100044006900730070006c006100790073000000002800000154000000dd00fffffffb0000000800480065006c00700000000342000000bb0000007600fffffffb0000000a0056006900650077007300000003b0000000b0000000b000fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e0067000000018200000280000001cc00ffffff0000039f000003be00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+    collapsed: false
+  QMainWindow State: 000000ff00000000fd0000000100000000000002b1000003dafc0200000005fb000000100044006900730070006c006100790073010000002800000154000000dd00fffffffb0000000800480065006c00700000000342000000bb0000007600fffffffb0000000a0056006900650077007300000003b0000000b0000000b000fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e0067010000018200000280000001cc00ffffff00000488000003da00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
-  Width: 927
-  X: 992
-  Y: 52
+  Width: 1855
+  X: 3905
+  Y: 24

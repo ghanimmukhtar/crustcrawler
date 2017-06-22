@@ -17,16 +17,18 @@ crustcrawler:
    joint_2_position_controller:
       controller:
         package: dynamixel_controllers
-        module: joint_position_controller
-        type: JointPositionController
+        module: joint_position_controller_dual_motor
+        type: JointPositionControllerDual
       joint: joint_2
       joint_name: joint_2
       joint_speed: 2.0
-      motor:
+      motor_master:
         id: 2
         init: 2047
         min: 0
         max: 4096
+      motor_slave:
+        id: 3
    joint_3_position_controller:
       controller:
         package: dynamixel_controllers

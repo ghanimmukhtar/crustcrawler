@@ -83,4 +83,4 @@ crustcrawler_gripper:
     - PRMkConfigDefault
     - PRMstarkConfigDefault
   projection_evaluator: joints(joint_6,left_finger_joint)
-  longest_valid_segment_fraction: 0.05
+longest_valid_segment_fraction: 0.05

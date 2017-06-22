@@ -15,7 +15,7 @@
   </include>
 
   <!-- urdf xml robot description loaded on the Parameter Server, converting the xacro into a proper urdf file-->
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find crustcrawler_description)/urdf/crustcrawler_arm_high_speed.xacro'" />
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find crustcrawler_description)/urdf/crustcrawler_arm_test_2.xacro'" />
 	
   <!-- push robot_description to factory and spawn robot in gazebo -->
   <node name="crustcrawler_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -model crustcrawler -param robot_description" />

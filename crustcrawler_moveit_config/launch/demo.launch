@@ -17,14 +17,14 @@
     <node pkg="tf" type="static_transform_publisher" name="virtual_joint_broadcaster_0" args="0 0 0 0 0 0 base world 100" />
 
 
-  <!-- We do not have a robot connected, so publish fake joint states -->
-  <!--node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+  <!-- We do not have a robot connected, so publish fake joint states >
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
     <param name="/use_gui" value="false"/>
     <rosparam param="/source_list">[/move_group/fake_controller_joint_states]</rosparam>
   </node-->
 
-  <!-- Given the published joint states, publish tf for the robot links -->
-  <!--node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" /-->
+  <!-- Given the published joint states, publish tf for the robot links >
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="true" output="screen" /-->
 
   <!-- Run the main MoveIt executable without trajectory execution (we do not have controllers configured by default) -->
   <arg name="kinect" default="false" />
@@ -38,7 +38,7 @@
     <arg name="fake_execution" value="false"/>
     <arg name="info" value="true"/>
     <arg name="debug" value="$(arg debug)"/>
-  </include>
+</include>
 
   <!-- Run Rviz and load the default config to see the state of the move_group node -->
   <include file="$(find crustcrawler_moveit_config)/launch/moveit_rviz.launch">

@@ -23,7 +23,8 @@
     	<param name="publish_frequency" value="20.0"/>
   </node>
 
-  <param name="time_step" value="2"/>  
+  <param name="time_step" value="2"/>
+    <param name="ros_rate" value="20.0"/>  
 
   <node name="crustcrawler_translator" pkg="crustcrawler_control" type="crustcrawler_command_translator" respawn="false" output="screen"/>
   

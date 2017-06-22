@@ -64,7 +64,6 @@
     </link>
         <!-- Arm's base joint -->
         <joint name="arm_base_joint" type="fixed">
-            <origin xyz="0 0 0" rpy="0 0 ${PI}" />
             <parent link="world"/> 
             <child link="link_joint_1"/>
         </joint>   

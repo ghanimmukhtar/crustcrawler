@@ -29,7 +29,7 @@
     <!-- Load the joint controller configuration from a YAML file -->
     <rosparam file="$(find crustcrawler_hw)/config/dynamixel_params.yaml" command="load"/>
     <param name="time_step" value="1"/>
-    <param name="ros_rate" value="20.0"/>
+    <param name="ros_rate" value="15.0"/>
 
    <!-- Start the head pan and tilt controllers -->
    <node name="joints_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"

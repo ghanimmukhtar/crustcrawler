@@ -143,8 +143,8 @@ public:
         }
         /*real robot*/
         else{
-            left_cmd_.data = -0.15;
-            right_cmd_.data = 0.15;
+            left_cmd_.data = -0.25;
+            right_cmd_.data = 0.25;
         }
         right_finger_command_pub_.publish(right_cmd_);
         left_finger_command_pub_.publish(left_cmd_);
@@ -173,7 +173,7 @@ protected:
     std::vector<double> fingers_positions_, joints_positions_;
     std::vector<std::string> gripper_joints_names_, joints_names_;
     std_msgs::Float64 left_cmd_, right_cmd_;
-    bool simulation_ = true;
+    bool simulation_ = false;
     int gripper_command_index_ = 13;
 };
 
