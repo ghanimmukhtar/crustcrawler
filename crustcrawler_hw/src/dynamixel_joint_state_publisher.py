@@ -91,6 +91,8 @@ class JointStatePublisher():
        
         for joint in self.joint_states.values():
             msg.name.append(joint.name)
+            #if joint.name == "left_finger_joint" or joint.name == "right_finger_joint":
+            	
             msg.position.append(joint.position)
             msg.velocity.append(joint.velocity)
             msg.effort.append(joint.effort)

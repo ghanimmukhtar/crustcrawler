@@ -11,7 +11,7 @@ crustcrawler:
       joint_speed: 1.7
       motor:
         id: 1
-        init: 2047
+        init: 2048
         min: 0
         max: 4096
    joint_2_position_controller:
@@ -23,12 +23,12 @@ crustcrawler:
       joint_name: joint_2
       joint_speed: 1.7
       motor_master:
-        id: 2
-        init: 2047
+        id: 3
+        init: 2048
         min: 0
         max: 4096
       motor_slave:
-        id: 3
+        id: 2
    joint_3_position_controller:
       controller:
         package: dynamixel_controllers
@@ -39,7 +39,7 @@ crustcrawler:
       joint_speed: 1.7
       motor:
         id: 4
-        init: 2047
+        init: 2048
         min: 0
         max: 4096
    joint_4_position_controller:
@@ -52,7 +52,7 @@ crustcrawler:
       joint_speed: 1.7
       motor:
         id: 5
-        init: 2047
+        init: 2048
         min: 0
         max: 4096
    joint_5_position_controller:
@@ -65,7 +65,7 @@ crustcrawler:
       joint_speed: 1.7
       motor:
         id: 6
-        init: 2047
+        init: 2048
         min: 0
         max: 4096
    joint_6_position_controller:
@@ -78,7 +78,7 @@ crustcrawler:
       joint_speed: 1.7
       motor:
         id: 7
-        init: 2047
+        init: 2048
         min: 0
         max: 4096
    joint_right_finger_position_controller:

@@ -67,7 +67,7 @@
 	        <!-- Arm's base joint -->
 		
 	        <joint name="base_joint" type="fixed">
-	            <origin xyz="0 0 0" rpy="0 0 0" />
+	            <origin xyz="0 0 0" rpy="0 0 ${PI}" />
 	            <parent link="world"/> 
 	            <child link="base"/>
 	        </joint>   
@@ -89,17 +89,17 @@
 
 	        <!-- joint 2 -->
 	        <joint name="joint_2" type="revolute" >
-	            <origin xyz="0 -0.06 0.06" rpy="0 0 0" />
+	            <origin xyz="0 -0.06 0.06" rpy="${PI/2} 0 0" />
 	            <parent link="link_joint_2" />
 	            <child link="connector_1"/>
 	            
-	            <axis xyz="0 1 0"/>
+	            <axis xyz="0 0 1"/>
 	            <limit  lower="-1.6" upper="1.6" effort="15" velocity="1.7" />
 	        </joint>
 
 	        <!-- Fixed joint between connector_1 and the first girder -->
 	        <joint name="connector_1_girder_1_joint" type="fixed">
-	            <origin xyz="-0.0153 0.06 0.036" rpy="0 0 0" />
+	            <origin xyz="-0.0153 0.036 -0.06" rpy="-${PI/2} 0 0" />
 	            <parent link="connector_1"/>
 	            <child link="link_girder_1"/>
 	        </joint>
@@ -117,7 +117,7 @@
 	            <parent link="link_joint_3" />
 	            <child link="connector_2"/>
 	            
-	            <axis xyz="0 -1 0"/>
+	            <axis xyz="0 1 0"/>
 	            <limit  lower="-1.9" upper="1.9" effort="8.4" velocity="1.7" />
 	        </joint>
 
@@ -130,7 +130,7 @@
 
 	        <!-- Fixed joint between second girder joint_4 -->
 	        <joint name="girder_2_joint_4_joint" type="fixed">
-	            <origin xyz="0.0153 0 0.0635" rpy="0 0 ${PI}" />
+	            <origin xyz="0.0153 0 0.0635" rpy="0 0 0" />
 	            <parent link="link_girder_2"/>
 	            <child link="link_joint_4"/>
 	        </joint>
@@ -195,7 +195,7 @@
 	        </joint>
 
 	        <joint name="crustcrawler_endpoint" type="fixed">
-	      <origin rpy="0 0 ${PI}" xyz="0 0 0.13"/>
+	      <origin rpy="0 0 0" xyz="0 0 0.13"/>
 	      <parent link="link_gripper_base"/>
 	      <child link="the_gripper"/>
 	    </joint>
@@ -257,7 +257,7 @@
 
 	        <link name="connector_1">
 	            <visual>
-	                <origin xyz="0 0.06 0" rpy="0 0 0" />
+	                <origin xyz="0 0 -0.06" rpy="-${PI/2} 0 0" />
 	                <geometry>
 	                    <mesh filename="package://crustcrawler_description/meshes/collada/connecter_joint_2_girder_1.dae"/>
 	                </geometry>
