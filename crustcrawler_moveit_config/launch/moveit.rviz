@@ -349,23 +349,23 @@ Visualization Manager:
         base:
           Value: true
         connector_1:
-          Value: false
+          Value: true
         connector_2:
-          Value: false
+          Value: true
         connector_3:
-          Value: false
+          Value: true
         link_girder_1:
-          Value: false
+          Value: true
         link_girder_2:
-          Value: false
+          Value: true
         link_gripper_base:
-          Value: false
+          Value: true
         link_joint_1:
-          Value: false
+          Value: true
         link_joint_2:
-          Value: false
+          Value: true
         link_joint_3:
-          Value: false
+          Value: true
         link_joint_4:
           Value: true
         link_joint_5:
@@ -373,13 +373,13 @@ Visualization Manager:
         link_joint_6:
           Value: true
         link_left_finger:
-          Value: true
+          Value: false
         link_right_finger:
-          Value: true
+          Value: false
         the_gripper:
           Value: true
         world:
-          Value: false
+          Value: true
       Marker Scale: 1
       Name: TF
       Show Arrows: true
@@ -446,10 +446,10 @@ Visualization Manager:
         Z: 0
       Name: Current View
       Near Clip Distance: 0.01
-      Pitch: 0.00539808
+      Pitch: 0.0453982
       Target Frame: world
       Value: XYOrbit (rviz)
-      Yaw: 5.04118
+      Yaw: 0.408016
     Saved: ~
 Window Geometry:
   Displays:
