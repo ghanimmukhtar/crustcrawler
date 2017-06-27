@@ -55,6 +55,7 @@
     
         <!-- ****** JOINT DEFINITIONS ****** -->   
         <link name="world"/> 
+		<link name="base"/>
         <link name="the_gripper">
       <inertial>
         <origin rpy="0 0 0" xyz="0 0 0"/>
@@ -62,11 +63,17 @@
         <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0.0"/>
       </inertial>
     </link>
-        <!-- Arm's base joint -->
-        <joint name="arm_base_joint" type="fixed">
-            <parent link="world"/> 
-            <child link="link_joint_1"/>
-        </joint>   
+        <!-- Arm's base joint -->		
+	        <joint name="base_joint" type="fixed">
+	            <origin xyz="0 0 0" rpy="0 0 0" />
+	            <parent link="world"/> 
+	            <child link="base"/>
+	        </joint>   
+
+	        <joint name="arm_base_joint" type="fixed">
+	            <parent link="base"/> 
+	            <child link="link_joint_1"/>
+	        </joint>   
         
         <!-- joint 1 -->
         <joint name="joint_1" type="revolute" >
@@ -108,7 +115,7 @@
             <parent link="link_joint_3" />
             <child link="connector_2"/>
             
-            <axis xyz="0 1 0"/>
+            <axis xyz="0 -1 0"/>
             <limit  lower="-1.9" upper="1.9" effort="8.4" velocity="2.0" />
         </joint>
 
@@ -142,7 +149,7 @@
             <parent link="link_joint_5" />
             <child link="connector_3"/>
             
-            <axis xyz="0 1 0"/>
+            <axis xyz="0 -1 0"/>
             <limit  lower="-1.6" upper="1.6" effort="2.5" velocity="2.0" />
         </joint>
 
