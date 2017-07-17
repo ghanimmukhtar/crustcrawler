@@ -194,7 +194,7 @@
 	        </joint>
 
 	        <joint name="crustcrawler_endpoint" type="fixed">
-	      <origin rpy="0 0 0" xyz="0 0 0.13"/>
+	      <origin rpy="0 0 0" xyz="0 0 0.1"/>
 	      <parent link="link_gripper_base"/>
 	      <child link="the_gripper"/>
 	    </joint>
