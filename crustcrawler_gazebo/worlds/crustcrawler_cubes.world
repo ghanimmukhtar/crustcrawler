@@ -6,7 +6,7 @@
     </include>
 
     <model name="my_model_1">
-	  <pose>0.5 0.3 0 0 0 0</pose>
+	  <pose>0.3 0.3 0 0 0 0</pose>
 	  <static>false</static>
 	    <link name="link">
 	      <inertial>
@@ -44,7 +44,7 @@
     </model>
 
     <model name="my_model_2">
-	  <pose>0.5 -0.3 0 0 0 0</pose>
+	  <pose>0.4 -0.3 0 0 0 0</pose>
 	  <static>false</static>
 	    <link name="link">
 	      <inertial>

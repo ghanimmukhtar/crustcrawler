@@ -1,4 +1,14 @@
 <launch>
+     <arg name="simulation" default="false" />
+     <group if="$(arg simulation)" >
+        <!-- octomap parameters for moveit -->
+         <group ns="move_group" >
+             <param name="octomap_frame" type="string" value="camera_link" />
+             <param name="octomap_resolution" type="double" value="0.02" />
+             <rosparam command="load" file="$(find crustcrawler_moveit_config)/config/kinect_sensor.yaml" />
+         </group>
+     </group>
+     
      <arg name="camera_link_pose" default="0.85 -0.225 0.813 -0.392 -0.0197 0.949 0.0723 "/>
      <arg name="kinect" default="false"/>
      <group if="$(arg kinect)" >
