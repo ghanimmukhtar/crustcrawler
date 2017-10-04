@@ -61,4 +61,4 @@ class Signal(object):
                 self._methods[slot.__self__].remove(slot.__func__)
         else:
             if slot in self._functions:
-                self._functions.remove(slot)
+self._functions.remove(slot)
