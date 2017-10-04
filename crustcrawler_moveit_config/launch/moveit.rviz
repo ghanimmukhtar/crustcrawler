@@ -11,11 +11,10 @@ Panels:
         - /MotionPlanning1/Scene Robot1
         - /MotionPlanning1/Planning Request1
         - /MotionPlanning1/Planned Path1
-        - /PointCloud23
         - /TF1
         - /TF1/Frames1
       Splitter Ratio: 0.74256
-    Tree Height: 441
+    Tree Height: 292
   - Class: rviz/Help
     Name: Help
   - Class: rviz/Views
@@ -177,7 +176,7 @@ Visualization Manager:
         Interactive Marker Size: 0
         Joint Violation Color: 255; 0; 255
         Planning Group: crustcrawler_arm
-        Query Goal State: false
+        Query Goal State: true
         Query Start State: false
         Show Workspace: false
         Start State Alpha: 1
@@ -380,106 +379,14 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        approach_frame0:
-          Value: true
-        approach_frame1:
-          Value: true
-        approach_frame10:
-          Value: true
-        approach_frame11:
-          Value: true
-        approach_frame12:
-          Value: true
-        approach_frame13:
-          Value: true
-        approach_frame14:
-          Value: true
-        approach_frame15:
-          Value: true
-        approach_frame16:
-          Value: true
-        approach_frame17:
-          Value: true
-        approach_frame18:
-          Value: true
-        approach_frame19:
-          Value: true
-        approach_frame2:
-          Value: true
-        approach_frame3:
-          Value: true
-        approach_frame4:
-          Value: true
-        approach_frame5:
-          Value: true
-        approach_frame6:
-          Value: true
-        approach_frame7:
-          Value: true
-        approach_frame8:
-          Value: true
-        approach_frame9:
-          Value: true
         base:
           Value: true
-        camera_depth_frame:
-          Value: false
-        camera_depth_optical_frame:
-          Value: false
-        camera_link:
-          Value: false
-        camera_rgb_frame:
-          Value: false
-        camera_rgb_optical_frame:
-          Value: false
         connector_1:
           Value: false
         connector_2:
           Value: false
         connector_3:
           Value: false
-        final_goal_frame0:
-          Value: true
-        final_goal_frame1:
-          Value: true
-        final_goal_frame10:
-          Value: true
-        final_goal_frame11:
-          Value: true
-        final_goal_frame12:
-          Value: true
-        final_goal_frame13:
-          Value: true
-        final_goal_frame14:
-          Value: true
-        final_goal_frame15:
-          Value: true
-        final_goal_frame16:
-          Value: true
-        final_goal_frame17:
-          Value: true
-        final_goal_frame18:
-          Value: true
-        final_goal_frame19:
-          Value: true
-        final_goal_frame2:
-          Value: true
-        final_goal_frame3:
-          Value: true
-        final_goal_frame4:
-          Value: true
-        final_goal_frame5:
-          Value: true
-        final_goal_frame6:
-          Value: true
-        final_goal_frame7:
-          Value: true
-        final_goal_frame8:
-          Value: true
-        final_goal_frame9:
-          Value: true
-        goal_frame:
-          Value: true
         link_girder_1:
           Value: false
         link_girder_2:
@@ -508,101 +415,12 @@ Visualization Manager:
           Value: false
       Marker Scale: 1
       Name: TF
-      Show Arrows: true
+      Show Arrows: false
       Show Axes: true
       Show Names: false
       Tree:
         world:
           base:
-            approach_frame0:
-              {}
-            approach_frame1:
-              {}
-            approach_frame10:
-              {}
-            approach_frame11:
-              {}
-            approach_frame12:
-              {}
-            approach_frame13:
-              {}
-            approach_frame14:
-              {}
-            approach_frame15:
-              {}
-            approach_frame16:
-              {}
-            approach_frame17:
-              {}
-            approach_frame18:
-              {}
-            approach_frame19:
-              {}
-            approach_frame2:
-              {}
-            approach_frame3:
-              {}
-            approach_frame4:
-              {}
-            approach_frame5:
-              {}
-            approach_frame6:
-              {}
-            approach_frame7:
-              {}
-            approach_frame8:
-              {}
-            approach_frame9:
-              {}
-            camera_link:
-              camera_rgb_frame:
-                camera_depth_frame:
-                  camera_depth_optical_frame:
-                    {}
-                camera_rgb_optical_frame:
-                  {}
-            final_goal_frame0:
-              {}
-            final_goal_frame1:
-              {}
-            final_goal_frame10:
-              {}
-            final_goal_frame11:
-              {}
-            final_goal_frame12:
-              {}
-            final_goal_frame13:
-              {}
-            final_goal_frame14:
-              {}
-            final_goal_frame15:
-              {}
-            final_goal_frame16:
-              {}
-            final_goal_frame17:
-              {}
-            final_goal_frame18:
-              {}
-            final_goal_frame19:
-              {}
-            final_goal_frame2:
-              {}
-            final_goal_frame3:
-              {}
-            final_goal_frame4:
-              {}
-            final_goal_frame5:
-              {}
-            final_goal_frame6:
-              {}
-            final_goal_frame7:
-              {}
-            final_goal_frame8:
-              {}
-            final_goal_frame9:
-              {}
-            goal_frame:
-              {}
             link_joint_1:
               link_joint_2:
                 connector_1:
@@ -623,6 +441,104 @@ Visualization Manager:
                                       {}
       Update Interval: 0
       Value: true
+    - Alpha: 1
+      Class: rviz/RobotModel
+      Collision Enabled: false
+      Enabled: true
+      Links:
+        All Links Enabled: true
+        Expand Joint Details: false
+        Expand Link Details: false
+        Expand Tree: false
+        Link Tree Style: Links in Alphabetic Order
+        base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        connector_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        connector_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        connector_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_girder_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_girder_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_gripper_base:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_joint_1:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_joint_2:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_joint_3:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_joint_4:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_joint_5:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_joint_6:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_left_finger:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        link_right_finger:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        the_gripper:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        world:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+      Name: RobotModel
+      Robot Description: robot_description
+      TF Prefix: ""
+      Update Interval: 0
+      Value: true
+      Visual Enabled: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -667,7 +583,7 @@ Window Geometry:
     collapsed: false
   MotionPlanning - Slider:
     collapsed: false
-  QMainWindow State: 000000ff00000000fd0000000100000000000002b1000003dafc0200000007fb000000100044006900730070006c0061007900730100000028000001fa000000dd00fffffffb0000000800480065006c00700000000342000000bb0000007600fffffffb0000000a005600690065007700730000000143000000b0000000b000fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670000000228000001da0000000000000000fb0000002e004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d00200053006c00690064006500720000000000ffffffff0000004a00fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e00670100000228000001da000001cc00ffffff00000488000003da00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
+  QMainWindow State: 000000ff00000000fd0000000100000000000002b1000003dafc0200000007fb000000100044006900730070006c006100790073010000002800000165000000dd00fffffffb0000000800480065006c00700000000342000000bb0000007600fffffffb0000000a005600690065007700730000000143000000b0000000b000fffffffb0000000c00430061006d00650072006100000002ff000001610000000000000000fb0000001e004d006f00740069006f006e00200050006c0061006e006e0069006e00670000000228000001da0000000000000000fb0000002e004d006f00740069006f006e0050006c0061006e006e0069006e00670020002d00200053006c00690064006500720000000000ffffffff0000004a00fffffffb0000001c004d006f00740069006f006e0050006c0061006e006e0069006e006701000001930000026f000001cc00ffffff00000488000003da00000001000000020000000100000002fc0000000100000002000000010000000a0054006f006f006c00730100000000ffffffff0000000000000000
   Views:
     collapsed: false
   Width: 1855

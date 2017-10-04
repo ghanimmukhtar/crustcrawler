@@ -9,7 +9,8 @@ find_package(catkin REQUIRED
   crustcrawler_core_msgs
 )
 
-find_package(Eigen3 REQUIRED)
+find_package(PkgConfig)
+pkg_search_module(Eigen3 REQUIRED eigen3)
 find_package(Boost REQUIRED COMPONENTS system )
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -Wall -fPIC")
