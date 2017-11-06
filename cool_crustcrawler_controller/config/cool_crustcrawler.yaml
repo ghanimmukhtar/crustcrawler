@@ -1,0 +1,114 @@
+joint1_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: joint_1
+    joint_speed: 1.7
+    motor:
+        id: 1
+        init: 2048
+        min: 0
+        max: 4096
+
+
+joint2_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller_dual_motor
+        type: JointPositionControllerDual
+    joint_name: joint_2
+    joint_speed: 1.7
+    motor_master:
+        id: 2
+        init: 2048
+        min: 0
+        max: 4096
+    motor_slave:
+        id: 3
+
+
+joint3_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: joint_3
+    joint_speed: 1.7
+    motor:
+        id: 4
+        init: 2048
+        min: 0
+        max: 4096
+
+
+joint4_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: joint_4
+    joint_speed: 1.7
+    motor:
+        id: 5
+        init: 2048
+        min: 0
+        max: 4096
+
+
+joint5_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: joint_5
+    joint_speed: 1.7
+    motor:
+        id: 6
+        init: 2048
+        min: 0
+        max: 4096
+
+
+joint6_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint_name: joint_6
+    joint_speed: 1.7
+    motor:
+        id: 7
+        init: 2048
+        min: 0
+        max: 4096
+
+
+joint_right_finger_position_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint: right_finger_joint
+    joint_name: right_finger_joint
+    joint_speed: 1.7
+    motor:
+        id: 9
+        init: 0
+        min: 0
+        max: 1023
+
+
+joint_left_finger_position_controller:
+    controller:
+        package: dynamixel_controllers
+        module: joint_position_controller
+        type: JointPositionController
+    joint: left_finger_joint
+    joint_name: left_finger_joint
+    joint_speed: 1.7
+    motor:
+        id: 8
+        init: 100
+        min: 0
+        max: 1023
