@@ -9,7 +9,6 @@ import rospy
 class PID(object):
     """
     PID control class
-
     This class implements a simplistic PID control algorithm. When first
     instantiated all the gain variables are set to zero, so calling
     the method compute_output will just return zero.
@@ -86,4 +85,4 @@ class PID(object):
 
         # sum the terms and return the result
         return ((self._kp * self._cp) + (self._ki * self._ci) +
-                (self._kd * self._cd))
+(self._kd * self._cd))
