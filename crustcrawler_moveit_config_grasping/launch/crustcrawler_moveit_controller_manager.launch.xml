@@ -15,5 +15,6 @@
   <param name="use_controller_manager" value="$(arg use_controller_manager)" />
   
   <!-- load controller_list and controller_manager_ns -->
-  <rosparam file="$(find crustcrawler_moveit_config)/config/controllers.yaml"/>
+  <rosparam file="$(find crustcrawler_moveit_config_grasping)/config/controllers_2.yaml"/>
+
 </launch>

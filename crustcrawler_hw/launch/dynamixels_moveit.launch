@@ -31,7 +31,7 @@
     <param name="time_step" value="1"/>
     <param name="ros_rate" value="15.0"/>
 
-   <!-- Start the head pan and tilt controllers -->
+   <!-- Start the joints position controllers -->
    <node name="joints_controller_spawner" pkg="dynamixel_controllers" type="controller_spawner.py"
          ns="/crustcrawler" args="--manager=dxl_manager
                 --port=dynamixel_ax12

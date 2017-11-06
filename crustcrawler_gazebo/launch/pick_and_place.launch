@@ -1,0 +1,8 @@
+<launch>
+  <node pkg="crustcrawler_gazebo" type="pick_and_place.py" name="pick_and_place_node">
+    <!-- <param name="arm"        value="crustcrawler_arm"/> 
+    <param name="gripper" value="crustcrawler_gripper"/> -->
+  </node>
+
+
+</launch>

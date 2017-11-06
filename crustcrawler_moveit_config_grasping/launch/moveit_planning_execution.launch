@@ -1,0 +1,13 @@
+<launch>
+ # The planning and execution components of MoveIt! configured to 
+ # publish the current configuration of the robot (simulated or real)
+ # and the current state of the world as seen by the planner
+ <include file="$(find crustcrawler_moveit_config_grasping)/launch/move_group.launch">
+  <arg name="publish_monitored_planning_scene" value="true" />
+ </include>
+ # The visualization component of MoveIt!
+ <!-- Run Rviz and load the default config to see the state of the move_group node -->
+  <include file="$(find crustcrawler_moveit_config_grasping)/launch/moveit_rviz.launch">
+    <arg name="config" value="true"/>
+  </include>
+</launch>

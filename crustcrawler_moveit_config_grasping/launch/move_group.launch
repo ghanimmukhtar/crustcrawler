@@ -1,12 +1,12 @@
 <launch>
 
-  <include file="$(find crustcrawler_moveit_config)/launch/planning_context.launch" />
+  <include file="$(find crustcrawler_moveit_config_grasping)/launch/planning_context.launch" />
 
   <!-- GDB Debug Option -->
   <arg name="debug" default="false" />
   <arg unless="$(arg debug)" name="launch_prefix" value="" />
   <arg     if="$(arg debug)" name="launch_prefix"
-	   value="gdb -x $(find crustcrawler_moveit_config)/launch/gdb_settings.gdb --ex run --args" />
+	   value="gdb -x $(find crustcrawler_moveit_config_grasping)/launch/gdb_settings.gdb --ex run --args" />
 
   <!-- Verbose Mode Option -->
   <arg name="info" default="$(arg debug)" />
@@ -21,27 +21,19 @@
   <arg name="publish_monitored_planning_scene" default="true"/>
 
   <!-- Planning Functionality -->
-  <include ns="move_group" file="$(find crustcrawler_moveit_config)/launch/planning_pipeline.launch.xml">
+  <include ns="move_group" file="$(find crustcrawler_moveit_config_grasping)/launch/planning_pipeline.launch.xml">
     <arg name="pipeline" value="ompl" />
   </include>
 
   <!-- Trajectory Execution Functionality -->
-  <include ns="move_group" file="$(find crustcrawler_moveit_config)/launch/trajectory_execution.launch.xml" if="$(arg allow_trajectory_execution)">
+  <include ns="move_group" file="$(find crustcrawler_moveit_config_grasping)/launch/trajectory_execution.launch.xml" if="$(arg allow_trajectory_execution)">
     <arg name="moveit_manage_controllers" value="true" />
     <arg name="moveit_controller_manager" value="crustcrawler" unless="$(arg fake_execution)"/>
     <arg name="moveit_controller_manager" value="fake" if="$(arg fake_execution)"/>
   </include>
-  
-  <arg name="kinect" default="false" />
-  <arg name="xtion" default="false" />
-  <arg name="simulation" default="false" />
-  <arg name="camera_link_pose" default="0.85 -0.225 0.813 -0.392 -0.0197 0.949 0.0723"/>
+
   <!-- Sensors Functionality -->
-  <include file="$(find crustcrawler_moveit_config)/launch/sensor_manager.launch.xml" if="$(arg allow_trajectory_execution)">
-    <arg name="kinect" value="$(arg kinect)" />
-    <arg name="xtion" value="$(arg xtion)" />
-    <arg name="simulation" value="$(arg simulation)" />
-    <arg name="camera_link_pose" default="$(arg camera_link_pose)"/>
+  <include ns="move_group" file="$(find crustcrawler_moveit_config_grasping)/launch/sensor_manager.launch.xml" if="$(arg allow_trajectory_execution)">
     <arg name="moveit_sensor_manager" value="crustcrawler" />
   </include>
 
@@ -54,18 +46,21 @@
     <param name="max_safe_path_cost" value="$(arg max_safe_path_cost)"/>
     <param name="jiggle_fraction" value="$(arg jiggle_fraction)" />
 
-    <!-- MoveGroup capabilities to load -->
-    <param name="capabilities" value="move_group/MoveGroupCartesianPathService
-				      move_group/MoveGroupExecuteService
-				      move_group/MoveGroupKinematicsService
-				      move_group/MoveGroupMoveAction
-				      move_group/MoveGroupPickPlaceAction
-				      move_group/MoveGroupPlanService
-				      move_group/MoveGroupQueryPlannersService
-				      move_group/MoveGroupStateValidationService
-				      move_group/MoveGroupGetPlanningSceneService
-              move_group/ClearOctomapService
-				      " />
+    <!-- load these non-default MoveGroup capabilities -->
+    <!--
+    <param name="capabilities" value="
+                  a_package/AwsomeMotionPlanningCapability
+                  another_package/GraspPlanningPipeline
+                  " />
+    -->
+
+    <!-- inhibit these default MoveGroup capabilities -->
+    <!--
+    <param name="disable_capabilities" value="
+                  move_group/MoveGroupKinematicsService
+                  move_group/ClearOctomapService
+                  " />
+    -->
 
     <!-- Publish the planning scene of the physical robot so that rviz plugin can know actual robot -->
     <param name="planning_scene_monitor/publish_planning_scene" value="$(arg publish_monitored_planning_scene)" />

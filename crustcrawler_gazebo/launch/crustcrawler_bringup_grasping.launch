@@ -1,0 +1,17 @@
+<launch>
+
+
+  <!-- Launch Gazebo  -->
+  <include file="$(find crustcrawler_gazebo)/launch/crustcrawler_world_grasping.launch" />   
+
+  <!-- ros_control seven crustcrawler arm launch file -->
+  <include file="$(find crustcrawler_gazebo)/launch/crustcrawler_gazebo_states.launch" />   
+
+  <!-- ros_control position control crustcrawler arm launch file -->
+  <!--<include file="$(find crustcrawler_gazebo)/launch/crustcrawler_gazebo_position.launch" />  -->
+
+  <!-- ros_control trajectory control crustcrawler arm launch file -->
+  <include file="$(find crustcrawler_gazebo)/launch/crustcrawler_trajectory_controller.launch" />    
+
+
+</launch>
