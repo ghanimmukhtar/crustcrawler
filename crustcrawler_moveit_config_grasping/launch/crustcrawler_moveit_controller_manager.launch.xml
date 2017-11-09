@@ -1,6 +1,7 @@
 <launch>
   <!-- Set the param that trajectory_execution_manager needs to find the controller plugin -->
   <arg name="moveit_controller_manager" default="moveit_simple_controller_manager/MoveItSimpleControllerManager" />
+  <arg name="simulation" default="true"/>
   <param name="moveit_controller_manager" value="$(arg moveit_controller_manager)"/>
 
   <!-- The rest of the params are specific to this plugin -->
@@ -15,6 +16,9 @@
   <param name="use_controller_manager" value="$(arg use_controller_manager)" />
   
   <!-- load controller_list and controller_manager_ns -->
-  <rosparam file="$(find crustcrawler_moveit_config_grasping)/config/controllers_2.yaml"/>
+  <!-- in simulation -->
+  <rosparam file="$(find crustcrawler_moveit_config_grasping)/config/controllers.yaml" if="$(arg simulation)" />
+  <!-- in real robot -->
+  <rosparam file="$(find crustcrawler_moveit_config_grasping)/config/controllers_2.yaml" unless="$(arg simulation)"/>
 
 </launch>

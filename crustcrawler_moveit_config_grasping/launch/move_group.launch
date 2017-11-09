@@ -26,14 +26,25 @@
   </include>
 
   <!-- Trajectory Execution Functionality -->
+  <arg name="simulation" default="true" />
   <include ns="move_group" file="$(find crustcrawler_moveit_config_grasping)/launch/trajectory_execution.launch.xml" if="$(arg allow_trajectory_execution)">
     <arg name="moveit_manage_controllers" value="true" />
     <arg name="moveit_controller_manager" value="crustcrawler" unless="$(arg fake_execution)"/>
     <arg name="moveit_controller_manager" value="fake" if="$(arg fake_execution)"/>
+    <arg name="simulation" value="$(arg simulation)"/>
   </include>
 
   <!-- Sensors Functionality -->
+  <arg name="kinect" default="false" />
+  <arg name="kinect2" default="false" />
+  <arg name="xtion" default="false" />
+  <arg name="camera_link_pose" default="0.85 -0.225 0.813 -0.392 -0.0197 0.949 0.0723"/>
   <include ns="move_group" file="$(find crustcrawler_moveit_config_grasping)/launch/sensor_manager.launch.xml" if="$(arg allow_trajectory_execution)">
+    <arg name="kinect" value="$(arg kinect)" />
+    <arg name="kinect2" value="$(arg kinect2)" />
+    <arg name="xtion" value="$(arg xtion)" />
+    <arg name="simulation" value="$(arg simulation)" />
+    <arg name="camera_link_pose" default="$(arg camera_link_pose)"/>
     <arg name="moveit_sensor_manager" value="crustcrawler" />
   </include>
 

@@ -66,9 +66,13 @@ class Pick_Place:
         # Define target place pose:
         self._pose_place = Pose()
 
-        self._pose_place.position.x = self._pose_coke_can.position.x 
-        self._pose_place.position.y = self._pose_coke_can.position.y - 0.06
-        self._pose_place.position.z = self._pose_coke_can.position.z 
+        #self._pose_place.position.x = self._pose_coke_can.position.x 
+        #self._pose_place.position.y = self._pose_coke_can.position.y - 0.06
+        #self._pose_place.position.z = self._pose_coke_can.position.z 
+
+        self._pose_place.position.x = 0.2 
+        self._pose_place.position.y = 0.3
+        self._pose_place.position.z = 0.0
 
         self._pose_place.orientation = Quaternion(*quaternion_from_euler(0.0, 0.0, 0.0))
 
@@ -104,6 +108,8 @@ class Pick_Place:
 
         rospy.loginfo('Pick up successfully')
 
+        self._scene.remove_world_object(self._table_object_name)
+
         # Place Coke can object on another place on the support surface (table):
         while not self._place(self._arm_group, self._grasp_object_name, self._pose_place):
             rospy.logwarn('Place failed! Retrying ...')
@@ -121,16 +127,16 @@ class Pick_Place:
         p.header.frame_id = self._robot.get_planning_frame()
         p.header.stamp = rospy.Time.now()
 
-        p.pose.position.x = 0.45
+        p.pose.position.x = 0.2
         p.pose.position.y = 0.0
-        p.pose.position.z = 0.22
+        p.pose.position.z = 0.0
 
-        q = quaternion_from_euler(0.0, 0.0, numpy.deg2rad(90.0))
+        q = quaternion_from_euler(0.0, 0.0, 0.0)
         p.pose.orientation = Quaternion(*q)
 
         # Table size from ~/.gazebo/models/table/model.sdf, using the values
         # for the surface link.
-        self._scene.add_box(name, p, (0.5, 0.4, 0.02))
+        self._scene.add_box(name, p, (0.5, 1.5, 0.02))
 
         return p.pose
 
@@ -139,9 +145,9 @@ class Pick_Place:
         p.header.frame_id = self._robot.get_planning_frame()
         p.header.stamp = rospy.Time.now()
 
-        p.pose.position.x = 0.25   
-        p.pose.position.y = 0.05
-        p.pose.position.z = 0.32
+        p.pose.position.x = 0.2   
+        p.pose.position.y = -0.3
+        p.pose.position.z = 0.0
 
         q = quaternion_from_euler(0.0, 0.0, 0.0)
         p.pose.orientation = Quaternion(*q)

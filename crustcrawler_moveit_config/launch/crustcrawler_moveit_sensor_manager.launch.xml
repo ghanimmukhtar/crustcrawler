@@ -1,5 +1,15 @@
 <launch>
      <arg name="simulation" default="false" />
+     <arg name="kinect2" default="false"/>
+     <group if="$(arg kinect2)" >
+        <!-- octomap parameters for moveit -->
+         <group ns="move_group" >
+             <param name="octomap_frame" type="string" value="kinect2_link" />
+             <param name="octomap_resolution" type="double" value="0.04" />
+             <rosparam command="load" file="$(find crustcrawler_moveit_config)/config/kinect2_sensor.yaml" />
+         </group>
+     </group>
+     
      <group if="$(arg simulation)" >
         <!-- octomap parameters for moveit -->
          <group ns="move_group" >

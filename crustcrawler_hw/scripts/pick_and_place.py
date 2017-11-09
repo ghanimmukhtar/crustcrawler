@@ -40,7 +40,7 @@ class Pick_Place:
         self._arm_group     = rospy.get_param('~arm', 'arm')
         self._gripper_group = rospy.get_param('~gripper', 'gripper')
 
-        self._approach_retreat_desired_dist = rospy.get_param('~approach_retreat_desired_dist', 0.2)
+        self._approach_retreat_desired_dist = rospy.get_param('~approach_retreat_desired_distrost', 0.2)
         self._approach_retreat_min_dist = rospy.get_param('~approach_retreat_min_dist', 0.1)
 
         # Create (debugging) publishers:
