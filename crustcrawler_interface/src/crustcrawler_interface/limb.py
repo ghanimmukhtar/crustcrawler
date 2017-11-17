@@ -87,6 +87,42 @@ class Limb(object):
             tcp_nodelay=True,
             queue_size=1)
 
+        self._pub_joint_1_cmd = rospy.Publisher(
+            ns + 'joint_1_position_controller/command',
+            Float64,
+            tcp_nodelay=True,
+            queue_size=1)
+
+        self._pub_joint_2_cmd = rospy.Publisher(
+            ns + 'joint_2_position_controller/command',
+            Float64,
+            tcp_nodelay=True,
+            queue_size=1)
+
+        self._pub_joint_3_cmd = rospy.Publisher(
+            ns + 'joint_3_position_controller/command',
+            Float64,
+            tcp_nodelay=True,
+            queue_size=1)
+
+        self._pub_joint_4_cmd = rospy.Publisher(
+            ns + 'joint_4_position_controller/command',
+            Float64,
+            tcp_nodelay=True,
+            queue_size=1)
+
+        self._pub_joint_5_cmd = rospy.Publisher(
+            ns + 'joint_5_position_controller/command',
+            Float64,
+            tcp_nodelay=True,
+            queue_size=1)
+
+        self._pub_joint_6_cmd = rospy.Publisher(
+            ns + 'joint_6_position_controller/command',
+            Float64,
+            tcp_nodelay=True,
+            queue_size=1)
+
         self._pub_joint_cmd_timeout = rospy.Publisher(
             ns + 'joint_command_timeout',
             Float64,
@@ -116,6 +152,7 @@ class Limb(object):
                    "from %s") % (self.name.capitalize(), ns + 'endpoint_state')
         #crustcrawler_dataflow.wait_for(lambda: len(self._cartesian_pose.keys()) > 0,
          #                        timeout_msg=err_msg)
+        print(self._joint_angle) 
 
     def _on_joint_states(self, msg):
         for idx, name in enumerate(msg.name):
@@ -140,6 +177,7 @@ class Limb(object):
                 msg.pose.orientation.w,
             ),
         }
+        #print(self._cartesian_pose)
         # _twist = {'linear': (x, y, z), 'angular': (x, y, z)}
         self._cartesian_velocity = {
             'linear': self.Point(
@@ -251,6 +289,7 @@ class Limb(object):
           - 'orientation': quaternion x,y,z,w in named tuple
                            L{Limb.Quaternion}
         """
+        #print(self._cartesian_pose)
         return deepcopy(self._cartesian_pose)
 
     def endpoint_velocity(self):
@@ -320,6 +359,7 @@ class Limb(object):
         @param speed: ratio of maximum joint speed for execution
                       default= 0.3; range= [0.0-1.0]
         """
+        #print("the speed is: %.6f" % speed)
         self._pub_speed_ratio.publish(Float64(speed))
 
     def set_joint_positions(self, positions, raw=False):
@@ -338,13 +378,22 @@ class Limb(object):
         @type raw: bool
         @param raw: advanced, direct position control mode
         """
-        self._command_msg.names = positions.keys()
-        self._command_msg.command = positions.values()
-        if raw:
-            self._command_msg.mode = JointCommand.RAW_POSITION_MODE
-        else:
-            self._command_msg.mode = JointCommand.POSITION_MODE
-        self._pub_joint_cmd.publish(self._command_msg)
+        #print(positions["joint_6"])
+        #self.set_joint_position_speed(0.8)
+        self._pub_joint_1_cmd.publish(positions["joint_1"])
+        self._pub_joint_2_cmd.publish(positions["joint_2"])
+        self._pub_joint_3_cmd.publish(positions["joint_3"])
+        self._pub_joint_4_cmd.publish(positions["joint_4"])
+        self._pub_joint_5_cmd.publish(positions["joint_5"])
+        self._pub_joint_6_cmd.publish(positions["joint_6"])
+        #for joint in positions.keys():
+        #self._command_msg.names = positions.keys()
+        #self._command_msg.command = positions.values()
+        #if raw:
+        #    self._command_msg.mode = JointCommand.RAW_POSITION_MODE
+        #else:
+        #    self._command_msg.mode = JointCommand.POSITION_MODE
+        #self._pub_joint_cmd.publish(self._command_msg)
 
     def set_joint_velocities(self, velocities):
         """

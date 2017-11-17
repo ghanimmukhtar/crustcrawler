@@ -83,7 +83,7 @@ def main():
     arg_fmt = argparse.ArgumentDefaultsHelpFormatter
     parser = argparse.ArgumentParser(formatter_class=arg_fmt)
     parser.add_argument(
-        "-r", "--rate", dest="rate", default=100.0,
+        "-r", "--rate", dest="rate", default=20.0,
         type=float, help="trajectory control rate (Hz)"
     )
     parser.add_argument(
