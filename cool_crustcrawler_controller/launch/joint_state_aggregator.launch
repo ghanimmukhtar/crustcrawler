@@ -1,0 +1,19 @@
+<!-- -*- mode: XML -*- -->
+
+<launch>
+    <node name="joint_state_aggregator" pkg="cool_crustcrawler_controller" type="joint_state_aggregator" output="screen">
+    <rosparam>
+            rate: 50
+            controllers:
+                    - joint1_controller
+                    - joint2_controller
+                    - joint3_controller
+                    - joint4_controller
+                    - joint5_controller
+                    - joint6_controller
+                    - joint_right_finger_position_controller
+                    - joint_left_finger_position_controller
+        </rosparam>
+        <remap from="/joint_states" to="/crustcrawler/joint_states"/>
+    </node>
+</launch>

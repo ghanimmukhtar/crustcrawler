@@ -1,14 +1,12 @@
 <launch>
-    <arg name="camera_link_pose" value="0.86 0.27 0.76 0.681822 0.644995 -0.237162 -0.219735 "/>
-    
-     <arg name="simulation" default="false" />
+     <arg name="simulation" default="true" />
      <arg name="kinect2" default="false"/>
      <group if="$(arg kinect2)" >
         <!-- octomap parameters for moveit -->
          <group ns="move_group" >
              <param name="octomap_frame" type="string" value="kinect2_link" />
              <param name="octomap_resolution" type="double" value="0.04" />
-             <rosparam command="load" file="$(find crustcrawler_moveit_config)/config/kinect2_sensor.yaml" />
+             <rosparam command="load" file="$(find crustcrawler_moveit_config_grasping)/config/kinect2_sensor.yaml" />
          </group>
      </group>
      
@@ -17,26 +15,11 @@
          <group ns="move_group" >
              <param name="octomap_frame" type="string" value="camera_link" />
              <param name="octomap_resolution" type="double" value="0.02" />
-             <rosparam command="load" file="$(find crustcrawler_moveit_config)/config/kinect_sensor.yaml" />
-         </group>
-     </group>
-
-     <arg name="kinect2" default="false" />
-     <group if="$(arg kinect2)" >
-        <!-- launch openni to talk to kinect -->
-         <!-- <include file="$(find kinect2_bridge)/launch/kinect2_bridge.launch"/> -->
-         <!-- Users update this to set transform between camera and robot -->
-         <node pkg="tf" type="static_transform_publisher" name="camera_link_broadcaster"
-               args="$(arg camera_link_pose) /base /kinect2_link 100" />
-        <!-- octomap parameters for moveit -->
-         <group ns="move_group" >
-             <param name="octomap_frame" type="string" value="kinect2_link" />
-             <param name="octomap_resolution" type="double" value="0.03" />
-             <rosparam command="load" file="$(find crustcrawler_moveit_config)/config/kinect2_sensor.yaml" />
+             <rosparam command="load" file="$(find crustcrawler_moveit_config_grasping)/config/kinect_sensor.yaml" />
          </group>
      </group>
      
-     
+     <arg name="camera_link_pose" default="0.85 -0.225 0.813 -0.392 -0.0197 0.949 0.0723 "/>
      <arg name="kinect" default="false"/>
      <group if="$(arg kinect)" >
          <!-- launch openni to talk to kinect -->

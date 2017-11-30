@@ -1,0 +1,23 @@
+<launch>
+ # The planning and execution components of MoveIt! configured to 
+ # publish the current configuration of the robot (simulated or real)
+ # and the current state of the world as seen by the planner
+ <arg name="simulation" default="true" />
+  <arg name="kinect" default="false" />
+  <arg name="kinect2" default="false" />
+  <arg name="xtion" default="false" />
+  <arg name="camera_link_pose" default="0.8 -0.225 0.87 -0.392 -0.0197 0.949 0.0723 "/>
+ <include file="$(find crustcrawler_moveit_config_grasping)/launch/move_group.launch">
+  <arg name="publish_monitored_planning_scene" value="true" />
+    <arg name="kinect" value="$(arg kinect)" />
+    <arg name="kinect2" value="$(arg kinect2)" />
+    <arg name="xtion" value="$(arg xtion)" />
+    <arg name="simulation" value="$(arg simulation)"/>
+    <arg name="camera_link_pose" default="$(arg camera_link_pose)"/>
+ </include>
+ # The visualization component of MoveIt!
+ <!-- Run Rviz and load the default config to see the state of the move_group node -->
+  <include file="$(find crustcrawler_moveit_config_grasping)/launch/moveit_rviz.launch">
+    <arg name="config" value="true"/>
+  </include>
+</launch>
