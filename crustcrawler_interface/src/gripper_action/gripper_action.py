@@ -85,11 +85,11 @@ class GripperActionServer(object):
     def _update_feedback(self, position):
         self._fdbk.position = self._gripper.position()
         self._fdbk.effort = self._gripper.force()
-        self._fdbk.stalled = (self._gripper.force() >
-                              self._gripper.parameters()['moving_force'])
-        self._fdbk.reached_goal = (fabs(self._gripper.position() -
-                                        position) <
-                                   self._gripper.parameters()['dead_zone'])
+        # self._fdbk.stalled = (self._gripper.force() >
+        #                       self._gripper.parameters()['moving_force'])
+        # self._fdbk.reached_goal = (fabs(self._gripper.position() -
+        #                                 position) <
+        #                            self._gripper.parameters()['dead_zone'])
         self._result = self._fdbk
         self._server.publish_feedback(self._fdbk)
 
@@ -97,10 +97,7 @@ class GripperActionServer(object):
         self._gripper.command_position(position, block=False)
 
     def _check_state(self, position):
-        return (self._gripper.force() >
-                self._gripper.parameters()['moving_force'] or
-                fabs(self._gripper.position() - position) <
-                self._gripper.parameters()['dead_zone'])
+        return (fabs(self._gripper.position() - position) < 0.02)
 
     def _on_gripper_action(self, goal):
         # Store position and effort from call
@@ -118,7 +115,7 @@ class GripperActionServer(object):
             self._server.set_aborted()
 
         # Pull parameters that will define the gripper actuation
-        self._get_gripper_parameters()
+        #self._get_gripper_parameters()
 
         # Reset feedback/result
         self._update_feedback(position)
@@ -131,9 +128,9 @@ class GripperActionServer(object):
 
         # Set the moving_force/vacuum_threshold based on max_effort provided
         # If effort not specified (0.0) use parameter server value
-        if fabs(effort) < 0.0001:
-            effort = self._prm['moving_force']
-        self._gripper.set_moving_force(effort)
+        # if fabs(effort) < 0.0001:
+        #     effort = self._prm['moving_force']
+        #self._gripper.set_moving_force(effort)
 
         def now_from_start(start):
             return rospy.get_time() - start

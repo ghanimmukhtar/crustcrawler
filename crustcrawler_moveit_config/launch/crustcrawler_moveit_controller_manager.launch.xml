@@ -17,7 +17,8 @@
   
   <!-- load controller_list and controller_manager_ns -->
   <!-- in simulation -->
-  <rosparam file="$(find crustcrawler_moveit_config)/config/controllers.yaml" if="$(arg simulation)"/>
+  <!-- <rosparam file="$(find crustcrawler_moveit_config)/config/controllers.yaml" if="$(arg simulation)"/> -->
+  <rosparam file="$(find crustcrawler_moveit_config)/config/crustcrawler_controllers.yaml" if="$(arg simulation)"/>
   <!-- in real robot -->
   <rosparam file="$(find crustcrawler_moveit_config)/config/controllers_2.yaml" unless="$(arg simulation)"/>
 
