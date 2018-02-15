@@ -28,6 +28,16 @@
         <joint name="joint_5" value="0" />
         <joint name="joint_6" value="0" />
     </group_state>
+
+    <group_state name="gripper_closed" group="crustcrawler_gripper">
+        <joint name="right_finger_joint" value="0" />
+        <joint name="left_finger_joint" value="0" />
+    </group_state>
+
+    <group_state name="gripper_opened" group="crustcrawler_gripper">
+        <joint name="right_finger_joint" value="0.8" />
+        <joint name="left_finger_joint" value="-0.8" />
+    </group_state>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
     <end_effector name="crustcrawler_eef" parent_link="link_gripper_base" group="crustcrawler_gripper" parent_group="crustcrawler_arm" />
     <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->

@@ -3,6 +3,6 @@ sensors:
    point_cloud_topic: /kinect2/qhd/points
    max_range: 1.50
    padding_offset: 0.0
-   padding_scale: 2.8
+   padding_scale: 3.0
    frame_subsample: 1
    point_subsample: 1

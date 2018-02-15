@@ -19,7 +19,7 @@
     <arg name="kinect2" value="$(arg kinect2)" />
     <arg name="xtion" value="$(arg xtion)" />
     <arg name="simulation" value="$(arg simulation)" />
-    <arg name="camera_link_pose" default="$(arg camera_link_pose)"/>
+    <!-- <arg name="camera_link_pose" default="$(arg camera_link_pose)"/> -->
   </include>
   
 </launch>
