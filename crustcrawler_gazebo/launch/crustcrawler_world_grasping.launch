@@ -9,6 +9,7 @@
 
   <!-- We resume the logic in empty_world.launch -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="world_name" value="$(find crustcrawler_gazebo)/worlds/crustcrawler_cubes.world"/>
  
 <!--   <arg name="world_name" default="$(find seven_dof_arm_gazebo)/worlds/grasping.world"/>  -->
 <!--   <arg name="world_name" default="$(find seven_dof_arm_gazebo)/worlds/grasp_final.sdf"/>  -->
@@ -21,14 +22,16 @@
   </include>
 
   <!-- Load the URDF into the ROS Parameter Server -->
-  <param name="robot_description" command="$(find xacro)/xacro.py '$(find crustcrawler_description)/urdf/crustcrawler_kinect.urdf.xacro'" /> 
+  <!-- <param name="robot_description" command="$(find xacro)/xacro.py '$(find crustcrawler_description)/urdf/crustcrawler_kinect.urdf.xacro'" />  -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find crustcrawler_description)/urdf/crustcrawler_kinect.urdf.xacro'" />
 
 
 
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
-  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
-	args="-urdf -model crustcrawler -param robot_description"/> 
+  <!-- <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+	args="-urdf -model crustcrawler -param robot_description"/> -->
+  <node name="crustcrawler_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" args="-urdf -model crustcrawler -param robot_description" /> 
 
 
 </launch>

@@ -1,12 +1,13 @@
 <launch> 
-  <arg name="simulate" default="true" />
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>	  
-  <include file="$(find gazebo_ros)/launch/empty_world.launch">	    
-    <arg name="world_name" value="$(find crustcrawler_gazebo)/worlds/crustcrawler_cubes.world"/>
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">	
+
+    <!-- <arg name="world_name" value="$(find crustcrawler_gazebo)/worlds/crustcrawler_cubes.world"/> -->
+    
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="$(arg paused)"/>
@@ -22,4 +23,6 @@
 
   <!-- ros_control mybot launch file -->
   <include file="$(find crustcrawler_control)/launch/crustcrawler_control.launch" />
+  <!-- <include file="$(find crustcrawler_gazebo)/launch/crustcrawler_gazebo_states.launch" />
+  <include file="$(find crustcrawler_gazebo)/launch/crustcrawler_trajectory_controller.launch" />     -->
 </launch>

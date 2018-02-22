@@ -6,7 +6,7 @@
   <arg name="debug" default="false" />
   <arg unless="$(arg debug)" name="launch_prefix" value="" />
   <arg     if="$(arg debug)" name="launch_prefix"
-     value="gdb -x $(find crustcrawler_moveit_config_grasping)/launch/gdb_settings.gdb --ex run --args" />
+	   value="gdb -x $(find crustcrawler_moveit_config_grasping)/launch/gdb_settings.gdb --ex run --args" />
 
   <!-- Verbose Mode Option -->
   <arg name="info" default="$(arg debug)" />
@@ -30,7 +30,7 @@
     <arg name="moveit_manage_controllers" value="true" />
     <arg name="moveit_controller_manager" value="crustcrawler" unless="$(arg fake_execution)"/>
     <arg name="moveit_controller_manager" value="fake" if="$(arg fake_execution)"/>
-    <arg name="simulation" value="$(arg simulation)" />
+    <arg name="simulation" value="$(arg simulation)"/>
   </include>
   
   <arg name="kinect" default="false" />
